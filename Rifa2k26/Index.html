@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kóòpremios | Rifa Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==============================
+           Variáveis e Reset
+           ============================== */
+        :root {
+            --primary: #d4af37; /* Dourado Premium */
+            --primary-hover: #b5952f;
+            --bg-color: #121214;
+            --surface-color: #202024;
+            --surface-hover: #29292e;
+            --text-color: #e1e1e6;
+            --text-muted: #a8a8b3;
+            --danger: #e74c3c;
+            --success: #04d361;
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { cursor: pointer; border: none; outline: none; }
+
+        /* ==============================
+           Navegação (Header)
+           ============================== */
+        header.navbar {
+            background-color: rgba(18, 18, 20, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid var(--surface-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-actions .btn-login {
+            background: transparent;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 10px 20px;
+            margin-right: 10px;
+        }
+
+        .nav-actions .btn-primary {
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .nav-actions .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================
+           Hero Section
+           ============================== */
+        .hero {
+            margin-top: 70px;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .prize-image-container {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .prize-image-container img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .badge-premium {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .hero h1 span { color: var(--primary); }
+
+        .hero p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* Barra de Progresso */
+        .progress-wrapper {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: left;
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--surface-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #fff3b0);
+            width: 78%; /* Simulando cota vendida */
+            border-radius: 6px;
+        }
+
+        /* ==============================
+           Seleção de Cotas
+           ============================== */
+        .buy-section {
+            padding: 40px 0;
+            background: var(--surface-color);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            background: var(--bg-color);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 30px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .package-card:hover, .package-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .package-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .package-card p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .package-card .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Resumo da Compra */
+        .checkout-bar {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            background: var(--bg-color);
+            padding: 20px 30px;
+            border-radius: var(--radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--primary);
+        }
+
+        .checkout-info p { font-size: 14px; color: var(--text-muted); }
+        .checkout-info h4 { font-size: 1.5rem; color: var(--primary); }
+
+        .btn-checkout {
+            background: var(--success);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 15px 40px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-checkout:hover {
+            background: #03b552;
+            transform: scale(1.05);
+        }
+
+        /* ==============================
+           Footer
+           ============================== */
+        footer {
+            background: #000;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid var(--surface-color);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* ==============================
+           Responsividade
+           ============================== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .checkout-bar { flex-direction: column; gap: 20px; text-align: center; }
+            .btn-checkout { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                Kóò<span>premios</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-login">Entrar</button>
+                <button class="btn-primary">Criar Conta</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero container">
+            <div class="prize-image-container">
+                <!-- Imagem Placeholder de um Carro Esportivo -->
+                <img src="https://images.unsplash.com/photo-1503376710356-78ce64bbaca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Porsche 911">
+                <div class="badge-premium">Edição Especial</div>
+            </div>
+            
+            <h1>Concorra a um <span>Porsche 911</span> ou R$ 500.000 no PIX!</h1>
+            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,99 a cota!</p>
+
+            <div class="progress-wrapper">
+                <div class="progress-stats">
+                    <span>Cotômetro</span>
+                    <span>78% Vendido</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Compra / Pacotes -->
+        <section class="buy-section">
+            <div class="container">
+                <h2 class="section-title">Escolha seu Pacote da Sorte</h2>
+                
+                <div class="packages-grid">
+                    <!-- Pacote 1 -->
+                    <div class="package-card" data-qty="10" data-price="9.90" onclick="selectPackage(this)">
+                        <h3>10 Cotas</h3>
+                        <p>Para começar a brincadeira</p>
+                        <div class="price">R$ 9,90</div>
+                    </div>
+
+                    <!-- Pacote 2 -->
+                    <div class="package-card selected" data-qty="50" data-price="49.50" onclick="selectPackage(this)">
+                        <div class="popular-badge">Mais Popular</div>
+                        <h3>50 Cotas</h3>
+                        <p>Mais chances de ganhar</p>
+                        <div class="price">R$ 49,50</div>
+                    </div>
+
+                    <!-- Pacote 3 -->
+                    <div class="package-card" data-qty="100" data-price="89.00" onclick="selectPackage(this)">
+                        <h3>100 Cotas</h3>
+                        <p>Promoção: R$ 0,89 por cota</p>
+                        <div class="price">R$ 89,00</div>
+                    </div>
+                </div>
+
+                <!-- Barra de Checkout Fixa na seção -->
+                <div class="checkout-bar">
+                    <div class="checkout-info">
+                        <p>Você está adquirindo:</p>
+                        <h4><span id="selected-qty">50</span> Cotas Selecionadas</h4>
+                    </div>
+                    <div class="checkout-action">
+                        <button class="btn-checkout">
+                            Pagar <span id="selected-price">R$ 49,50</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="margin-bottom: 20px;">
+                Kóò<span>premios</span>
+            </div>
+            <p>&copy; 2026 Kóòpremios. Todos os direitos reservados.</p>
+            <p>Plataforma de sorteios baseada na Loteria Federal.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts da Página -->
+    <script>
+        /**
+         * Lógica simples para selecionar pacotes de cotas e 
+         * atualizar dinamicamente a interface do usuário (UI).
+         */
+        function selectPackage(element) {
+            // Remove a classe 'selected' de todos os cartões
+            const cards = document.querySelectorAll('.package-card');
+            cards.forEach(card => card.classList.remove('selected'));
+
+            // Adiciona a classe 'selected' ao cartão clicado
+            element.classList.add('selected');
+
+            // Captura os dados do cartão via data-attributes
+            const qty = element.getAttribute('data-qty');
+            const price = parseFloat(element.getAttribute('data-price')).toFixed(2);
+
+            // Formata o preço para o padrão BRL (vírgula em vez de ponto)
+            const formattedPrice = `R$ ${price.replace('.', ',')}`;
+
+            // Atualiza os valores na barra de checkout
+            document.getElementById('selected-qty').innerText = qty;
+            document.getElementById('selected-price').innerText = formattedPrice;
+            
+            // Opcional: Feedback tátil ou visual extra
+            animateCheckoutBar();
+        }
+
+        function animateCheckoutBar() {
+            const checkoutBar = document.querySelector('.checkout-bar');
+            checkoutBar.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                checkoutBar.style.transform = 'scale(1)';
+            }, 150);
+        }
+    </script>
+</body>
+</html>
