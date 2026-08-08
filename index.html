@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kóòpremios | Rifa Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==============================
+           Variáveis e Reset
+           ============================== */
+        :root {
+            --primary: #e11d2e;
+            --primary-hover: #b80f1e;
+            --bg-color: #121214;
+            --surface-color: #202024;
+            --surface-hover: #29292e;
+            --text-color: #e1e1e6;
+            --text-muted: #a8a8b3;
+            --danger: #e74c3c;
+            --success: #e11d2e;
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { cursor: pointer; border: none; outline: none; }
+
+        /* ==============================
+           Navegação (Header)
+           ============================== */
+        header.navbar {
+            background-color: rgba(18, 18, 20, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid var(--surface-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-actions .btn-login {
+            background: transparent;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 10px 20px;
+            margin-right: 10px;
+        }
+
+        .nav-actions .btn-primary {
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .nav-actions .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================
+           Hero Section
+           ============================== */
+        .hero {
+            margin-top: 70px;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .prize-image-container {
+            max-width: 680px;
+            margin: 0 auto 30px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            aspect-ratio: 3 / 4;
+            background: var(--surface-color);
+        }
+
+        .carousel-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.55s ease, visibility 0.55s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            z-index: 4;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: rgba(18, 18, 20, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            transform: translateY(-50%);
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .carousel-control:hover,
+        .carousel-control:focus-visible {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .carousel-control:focus-visible,
+        .carousel-dot:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+
+        .carousel-control.previous { left: 16px; }
+        .carousel-control.next { right: 16px; }
+
+        .carousel-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            z-index: 4;
+            display: flex;
+            gap: 9px;
+            padding: 9px 12px;
+            border-radius: 999px;
+            background: rgba(18, 18, 20, 0.62);
+            backdrop-filter: blur(8px);
+            transform: translateX(-50%);
+        }
+
+        .carousel-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.35);
+        }
+
+        .badge-premium {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .hero h1 span { color: var(--primary); }
+
+        .hero p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* Barra de Progresso */
+        .progress-wrapper {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: left;
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--surface-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #ff6978);
+            width: 78%; /* Simulando cota vendida */
+            border-radius: 6px;
+        }
+
+        /* ==============================
+           Seleção de Cotas
+           ============================== */
+        .buy-section {
+            padding: 40px 0;
+            background: var(--surface-color);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            background: var(--bg-color);
+            border: 1px solid rgba(225, 29, 46, 0.25);
+            padding: 30px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .package-card:hover, .package-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(225, 29, 46, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .package-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .package-card p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .package-card .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Resumo da Compra */
+        .checkout-bar {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            background: var(--bg-color);
+            padding: 20px 30px;
+            border-radius: var(--radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--primary);
+        }
+
+        .checkout-info p { font-size: 14px; color: var(--text-muted); }
+        .checkout-info h4 { font-size: 1.5rem; color: var(--primary); }
+
+        .btn-checkout {
+            background: var(--success);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 15px 40px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-checkout:hover {
+            background: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        /* ==============================
+           Footer
+           ============================== */
+        footer {
+            background: #000;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid var(--surface-color);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* ==============================
+           Responsividade
+           ============================== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding-top: 30px; }
+            .carousel-control { width: 40px; height: 40px; }
+            .carousel-control.previous { left: 10px; }
+            .carousel-control.next { right: 10px; }
+            .checkout-bar { flex-direction: column; gap: 20px; text-align: center; }
+            .btn-checkout { width: 100%; justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .carousel-slide,
+            .carousel-control,
+            .carousel-dot { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                Kóò<span>premios</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-login">Entrar</button>
+                <button class="btn-primary">Criar Conta</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero container">
+            <div class="prize-image-container" id="prizeCarousel" role="region" aria-roledescription="carrossel" aria-label="Fotos da XRE 190 2026">
+                <figure class="carousel-slide active" aria-hidden="false">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-01.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-01.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-01.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 1 da XRE 190 2026" fetchpriority="high">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-02.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-02.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-02.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 2 da XRE 190 2026" loading="lazy">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-03.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-03.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-03.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 3 da XRE 190 2026" loading="lazy">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-04.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-04.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-04.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 4 da XRE 190 2026" loading="lazy">
+                </figure>
+                <div class="badge-premium">Modelo 2026</div>
+                <button class="carousel-control previous" type="button" aria-label="Mostrar foto anterior">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button class="carousel-control next" type="button" aria-label="Mostrar próxima foto">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+                <div class="carousel-dots" aria-label="Selecionar foto">
+                    <button class="carousel-dot active" type="button" aria-label="Mostrar foto 1" aria-current="true"></button>
+                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 2"></button>
+                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 3"></button>
+                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 4"></button>
+                </div>
+            </div>
+            
+            <h1>Concorra a uma <span>XRE 190 2026</span>!</h1>
+            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,99 a cota!</p>
+
+            <div class="progress-wrapper">
+                <div class="progress-stats">
+                    <span>Cotômetro</span>
+                    <span>78% Vendido</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Compra / Pacotes -->
+        <section class="buy-section">
+            <div class="container">
+                <h2 class="section-title">Escolha seu Pacote da Sorte</h2>
+                
+                <div class="packages-grid">
+                    <!-- Pacote 1 -->
+                    <div class="package-card" data-qty="10" data-price="9.90" onclick="selectPackage(this)">
+                        <h3>10 Cotas</h3>
+                        <p>Para começar a brincadeira</p>
+                        <div class="price">R$ 9,90</div>
+                    </div>
+
+                    <!-- Pacote 2 -->
+                    <div class="package-card selected" data-qty="50" data-price="49.50" onclick="selectPackage(this)">
+                        <div class="popular-badge">Mais Popular</div>
+                        <h3>50 Cotas</h3>
+                        <p>Mais chances de ganhar</p>
+                        <div class="price">R$ 49,50</div>
+                    </div>
+
+                    <!-- Pacote 3 -->
+                    <div class="package-card" data-qty="100" data-price="89.00" onclick="selectPackage(this)">
+                        <h3>100 Cotas</h3>
+                        <p>Promoção: R$ 0,89 por cota</p>
+                        <div class="price">R$ 89,00</div>
+                    </div>
+                </div>
+
+                <!-- Barra de Checkout Fixa na seção -->
+                <div class="checkout-bar">
+                    <div class="checkout-info">
+                        <p>Você está adquirindo:</p>
+                        <h4><span id="selected-qty">50</span> Cotas Selecionadas</h4>
+                    </div>
+                    <div class="checkout-action">
+                        <button class="btn-checkout">
+                            Pagar <span id="selected-price">R$ 49,50</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="margin-bottom: 20px;">
+                Kóò<span>premios</span>
+            </div>
+            <p>&copy; 2026 Kóòpremios. Todos os direitos reservados.</p>
+            <p>Plataforma de sorteios baseada na Loteria Federal.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts da Página -->
+    <script>
+        const carousel = document.getElementById('prizeCarousel');
+        const carouselSlides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+        const carouselDots = Array.from(carousel.querySelectorAll('.carousel-dot'));
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let currentSlide = 0;
+        let carouselTimer;
+        let touchStartX = 0;
+
+        function showSlide(index) {
+            currentSlide = (index + carouselSlides.length) % carouselSlides.length;
+
+            carouselSlides.forEach((slide, slideIndex) => {
+                const isActive = slideIndex === currentSlide;
+                slide.classList.toggle('active', isActive);
+                slide.setAttribute('aria-hidden', String(!isActive));
+            });
+
+            carouselDots.forEach((dot, dotIndex) => {
+                const isActive = dotIndex === currentSlide;
+                dot.classList.toggle('active', isActive);
+                if (isActive) {
+                    dot.setAttribute('aria-current', 'true');
+                } else {
+                    dot.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function stopCarousel() {
+            window.clearInterval(carouselTimer);
+        }
+
+        function startCarousel() {
+            stopCarousel();
+            if (!reduceMotion) {
+                carouselTimer = window.setInterval(() => showSlide(currentSlide + 1), 5000);
+            }
+        }
+
+        carousel.querySelector('.previous').addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            startCarousel();
+        });
+
+        carousel.querySelector('.next').addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            startCarousel();
+        });
+
+        carouselDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                startCarousel();
+            });
+        });
+
+        carousel.addEventListener('mouseenter', stopCarousel);
+        carousel.addEventListener('mouseleave', startCarousel);
+        carousel.addEventListener('focusin', stopCarousel);
+        carousel.addEventListener('focusout', startCarousel);
+        carousel.addEventListener('touchstart', event => {
+            touchStartX = event.changedTouches[0].clientX;
+            stopCarousel();
+        }, { passive: true });
+        carousel.addEventListener('touchend', event => {
+            const movement = event.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(movement) > 45) {
+                showSlide(currentSlide + (movement < 0 ? 1 : -1));
+            }
+            startCarousel();
+        }, { passive: true });
+
+        startCarousel();
+
+        /**
+         * Lógica simples para selecionar pacotes de cotas e 
+         * atualizar dinamicamente a interface do usuário (UI).
+         */
+        function selectPackage(element) {
+            // Remove a classe 'selected' de todos os cartões
+            const cards = document.querySelectorAll('.package-card');
+            cards.forEach(card => card.classList.remove('selected'));
+
+            // Adiciona a classe 'selected' ao cartão clicado
+            element.classList.add('selected');
+
+            // Captura os dados do cartão via data-attributes
+            const qty = element.getAttribute('data-qty');
+            const price = parseFloat(element.getAttribute('data-price')).toFixed(2);
+
+            // Formata o preço para o padrão BRL (vírgula em vez de ponto)
+            const formattedPrice = `R$ ${price.replace('.', ',')}`;
+
+            // Atualiza os valores na barra de checkout
+            document.getElementById('selected-qty').innerText = qty;
+            document.getElementById('selected-price').innerText = formattedPrice;
+            
+            // Opcional: Feedback tátil ou visual extra
+            animateCheckoutBar();
+        }
+
+        function animateCheckoutBar() {
+            const checkoutBar = document.querySelector('.checkout-bar');
+            checkoutBar.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                checkoutBar.style.transform = 'scale(1)';
+            }, 150);
+        }
+    </script>
+</body>
+</html>
