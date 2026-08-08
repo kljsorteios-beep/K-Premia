@@ -10,15 +10,15 @@
            Variáveis e Reset
            ============================== */
         :root {
-            --primary: #d4af37; /* Dourado Premium */
-            --primary-hover: #b5952f;
+            --primary: #e11d2e;
+            --primary-hover: #b80f1e;
             --bg-color: #121214;
             --surface-color: #202024;
             --surface-hover: #29292e;
             --text-color: #e1e1e6;
             --text-muted: #a8a8b3;
             --danger: #e74c3c;
-            --success: #04d361;
+            --success: #e11d2e;
             --radius: 8px;
             --transition: all 0.3s ease;
         }
@@ -107,18 +107,93 @@
         }
 
         .prize-image-container {
-            max-width: 800px;
+            max-width: 680px;
             margin: 0 auto 30px;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             position: relative;
+            aspect-ratio: 3 / 4;
+            background: var(--surface-color);
         }
 
-        .prize-image-container img {
+        .carousel-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.55s ease, visibility 0.55s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .carousel-slide img {
             width: 100%;
+            height: 100%;
             display: block;
             object-fit: cover;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            z-index: 4;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: rgba(18, 18, 20, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            transform: translateY(-50%);
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .carousel-control:hover,
+        .carousel-control:focus-visible {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .carousel-control:focus-visible,
+        .carousel-dot:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+
+        .carousel-control.previous { left: 16px; }
+        .carousel-control.next { right: 16px; }
+
+        .carousel-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            z-index: 4;
+            display: flex;
+            gap: 9px;
+            padding: 9px 12px;
+            border-radius: 999px;
+            background: rgba(18, 18, 20, 0.62);
+            backdrop-filter: blur(8px);
+            transform: translateX(-50%);
+        }
+
+        .carousel-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.35);
         }
 
         .badge-premium {
@@ -170,7 +245,7 @@
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), #fff3b0);
+            background: linear-gradient(90deg, var(--primary), #ff6978);
             width: 78%; /* Simulando cota vendida */
             border-radius: 6px;
         }
@@ -199,7 +274,7 @@
 
         .package-card {
             background: var(--bg-color);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(225, 29, 46, 0.25);
             padding: 30px 20px;
             border-radius: var(--radius);
             text-align: center;
@@ -210,7 +285,7 @@
 
         .package-card:hover, .package-card.selected {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 20px rgba(225, 29, 46, 0.2);
             transform: translateY(-5px);
         }
 
@@ -274,7 +349,7 @@
         }
 
         .btn-checkout:hover {
-            background: #03b552;
+            background: var(--primary-hover);
             transform: scale(1.05);
         }
 
@@ -300,8 +375,18 @@
            ============================== */
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.8rem; }
+            .hero { padding-top: 30px; }
+            .carousel-control { width: 40px; height: 40px; }
+            .carousel-control.previous { left: 10px; }
+            .carousel-control.next { right: 10px; }
             .checkout-bar { flex-direction: column; gap: 20px; text-align: center; }
             .btn-checkout { width: 100%; justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .carousel-slide,
+            .carousel-control,
+            .carousel-dot { transition: none; }
         }
     </style>
 </head>
@@ -323,13 +408,35 @@
     <!-- Hero Section -->
     <main>
         <section class="hero container">
-            <div class="prize-image-container">
-                <!-- Imagem Placeholder de um Carro Esportivo -->
-                <img src="https://images.unsplash.com/photo-1503376710356-78ce64bbaca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Porsche 911">
-                <div class="badge-premium">Edição Especial</div>
+            <div class="prize-image-container" id="prizeCarousel" role="region" aria-roledescription="carrossel" aria-label="Fotos da XRE 190 2026">
+                <figure class="carousel-slide active" aria-hidden="false">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-01.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-01.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-01.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 1 da XRE 190 2026" fetchpriority="high">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-02.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-02.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-02.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 2 da XRE 190 2026" loading="lazy">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-03.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-03.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-03.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 3 da XRE 190 2026" loading="lazy">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="/.netlify/images?url=/assets/gallery/xre-190-04.jpg&w=900&q=86" srcset="/.netlify/images?url=/assets/gallery/xre-190-04.jpg&w=560&q=82 560w, /.netlify/images?url=/assets/gallery/xre-190-04.jpg&w=900&q=86 900w" sizes="(max-width: 720px) calc(100vw - 40px), 680px" alt="Foto 4 da XRE 190 2026" loading="lazy">
+                </figure>
+                <div class="badge-premium">Modelo 2026</div>
+                <button class="carousel-control previous" type="button" aria-label="Mostrar foto anterior">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button class="carousel-control next" type="button" aria-label="Mostrar próxima foto">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+                <div class="carousel-dots" aria-label="Selecionar foto">
+                    <button class="carousel-dot active" type="button" aria-label="Mostrar foto 1" aria-current="true"></button>
+                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 2"></button>
+                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 3"></button>
+                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 4"></button>
+                </div>
             </div>
             
-            <h1>Concorra a um <span>Porsche 911</span> ou R$ 500.000 no PIX!</h1>
+            <h1>Concorra a uma <span>XRE 190 2026</span>!</h1>
             <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,99 a cota!</p>
 
             <div class="progress-wrapper">
@@ -402,6 +509,80 @@
 
     <!-- Scripts da Página -->
     <script>
+        const carousel = document.getElementById('prizeCarousel');
+        const carouselSlides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+        const carouselDots = Array.from(carousel.querySelectorAll('.carousel-dot'));
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let currentSlide = 0;
+        let carouselTimer;
+        let touchStartX = 0;
+
+        function showSlide(index) {
+            currentSlide = (index + carouselSlides.length) % carouselSlides.length;
+
+            carouselSlides.forEach((slide, slideIndex) => {
+                const isActive = slideIndex === currentSlide;
+                slide.classList.toggle('active', isActive);
+                slide.setAttribute('aria-hidden', String(!isActive));
+            });
+
+            carouselDots.forEach((dot, dotIndex) => {
+                const isActive = dotIndex === currentSlide;
+                dot.classList.toggle('active', isActive);
+                if (isActive) {
+                    dot.setAttribute('aria-current', 'true');
+                } else {
+                    dot.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function stopCarousel() {
+            window.clearInterval(carouselTimer);
+        }
+
+        function startCarousel() {
+            stopCarousel();
+            if (!reduceMotion) {
+                carouselTimer = window.setInterval(() => showSlide(currentSlide + 1), 5000);
+            }
+        }
+
+        carousel.querySelector('.previous').addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            startCarousel();
+        });
+
+        carousel.querySelector('.next').addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            startCarousel();
+        });
+
+        carouselDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                startCarousel();
+            });
+        });
+
+        carousel.addEventListener('mouseenter', stopCarousel);
+        carousel.addEventListener('mouseleave', startCarousel);
+        carousel.addEventListener('focusin', stopCarousel);
+        carousel.addEventListener('focusout', startCarousel);
+        carousel.addEventListener('touchstart', event => {
+            touchStartX = event.changedTouches[0].clientX;
+            stopCarousel();
+        }, { passive: true });
+        carousel.addEventListener('touchend', event => {
+            const movement = event.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(movement) > 45) {
+                showSlide(currentSlide + (movement < 0 ? 1 : -1));
+            }
+            startCarousel();
+        }, { passive: true });
+
+        startCarousel();
+
         /**
          * Lógica simples para selecionar pacotes de cotas e 
          * atualizar dinamicamente a interface do usuário (UI).
