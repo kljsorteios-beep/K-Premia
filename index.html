@@ -4,629 +4,448 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kóòpremios | Rifa Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ==============================
-           Variáveis e Reset
+           Variáveis de Cores Baseadas na Imagem
            ============================== */
         :root {
-            /* NOVO DOURADO: Brilhante, Premium e Vibrante */
-            --primary: #FFD700; 
-            --primary-hover: #E6C200; /* Dourado levemente mais escuro para hover */
+            /* Fundo Azul Marinho Super Escuro */
+            --bg-color: #030a16; 
+            --card-bg: #071022;
             
-            --bg-color: #081021; /* Azul marinho muito escuro */
-            --surface-color: #0f172a; /* Azul marinho de superfície */
-            --surface-hover: #1e293b; 
-            --text-color: #e1e1e6;
-            --text-muted: #a8a8b3;
-            --danger: #e74c3c;
-            --success: #FFD700; /* Dourado brilhante */
+            /* Dourados Metálicos da Imagem */
+            --gold-light: #fce18d;
+            --gold-mid: #d4a742;
+            --gold-dark: #b5842f;
+            
+            /* Degradês Específicos */
+            --gold-text-gradient: linear-gradient(90deg, #cca03c 0%, #fdf0a6 50%, #cca03c 100%);
+            --gold-btn-gradient: linear-gradient(180deg, #fce08b 0%, #c39221 100%);
+            --gold-progress-gradient: linear-gradient(90deg, #a67c27 0%, #fdf0a6 80%, #fce08b 100%);
+            
+            /* Textos e Bordas */
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --border-unselected: #3b321a; /* Borda dourada escura quase marrom */
+            --border-selected: #cca03c;
+            
             --radius: 8px;
-            --transition: all 0.3s ease;
+            --transition: all 0.2s ease-in-out;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            color: var(--text-white);
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-        }
-
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        button { cursor: pointer; border: none; outline: none; }
-
-        /* ==============================
-           Navegação (Header)
-           ============================== */
-        header.navbar {
-            background-color: rgba(8, 16, 33, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0; width: 100%;
-            z-index: 100;
-            border-bottom: 1px solid var(--surface-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 900px;
             padding: 0 20px;
+            margin: 0 auto;
         }
 
-        .nav-content {
+        /* ==============================
+           Utilitários de Texto
+           ============================== */
+        .text-gold {
+            background: var(--gold-text-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .glow {
+            filter: drop-shadow(0 0 12px rgba(253, 240, 166, 0.3));
+        }
+
+        /* ==============================
+           Header
+           ============================== */
+        header {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            padding: 20px 40px;
+            max-width: 1200px;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: var(--text-color);
-            letter-spacing: 1px;
+            color: var(--gold-mid);
+            letter-spacing: -0.5px;
         }
 
-        .logo span { color: var(--primary); }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-        .nav-actions .btn-login {
-            background: transparent;
-            color: var(--text-color);
-            font-weight: 600;
+        .nav-actions a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .btn-gold {
+            background: var(--gold-btn-gradient);
+            color: #1a1100;
+            font-weight: 700;
             padding: 10px 20px;
-            margin-right: 10px;
-        }
-
-        .nav-actions .btn-primary {
-            background: var(--primary);
-            color: #000;
-            font-weight: 700;
-            padding: 10px 24px;
-            border-radius: var(--radius);
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
             transition: var(--transition);
         }
-
-        .nav-actions .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
+        
+        .btn-gold:hover {
+            filter: brightness(1.1);
         }
 
         /* ==============================
-           Hero Section
+           Hero Section (Títulos)
            ============================== */
         .hero {
-            margin-top: 70px;
-            padding: 60px 0;
             text-align: center;
-        }
-
-        .prize-image-container {
-            max-width: 680px;
-            margin: 0 auto 30px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            aspect-ratio: 3 / 4;
-            background: var(--surface-color);
-        }
-
-        .carousel-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.55s ease, visibility 0.55s ease;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-        }
-
-        .carousel-control {
-            position: absolute;
-            top: 50%;
-            z-index: 4;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            color: #fff;
-            background: rgba(8, 16, 33, 0.72);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            backdrop-filter: blur(8px);
-            transform: translateY(-50%);
-            transition: background 0.25s ease, transform 0.25s ease;
-        }
-
-        .carousel-control:hover,
-        .carousel-control:focus-visible {
-            background: var(--primary);
-            color: #000;
-            transform: translateY(-50%) scale(1.08);
-        }
-
-        .carousel-control:focus-visible,
-        .carousel-dot:focus-visible {
-            outline: 3px solid #fff;
-            outline-offset: 3px;
-        }
-
-        .carousel-control.previous { left: 16px; }
-        .carousel-control.next { right: 16px; }
-
-        .carousel-dots {
-            position: absolute;
-            left: 50%;
-            bottom: 18px;
-            z-index: 4;
-            display: flex;
-            gap: 9px;
-            padding: 9px 12px;
-            border-radius: 999px;
-            background: rgba(8, 16, 33, 0.62);
-            backdrop-filter: blur(8px);
-            transform: translateX(-50%);
-        }
-
-        .carousel-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.45);
-            transition: background 0.25s ease, transform 0.25s ease;
-        }
-
-        .carousel-dot.active {
-            background: var(--primary);
-            transform: scale(1.35);
-        }
-
-        .badge-premium {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); /* Brilho leve no badge */
+            margin-top: 40px;
+            margin-bottom: 50px;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: var(--text-color);
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
         }
 
-        .hero h1 span { color: var(--primary); text-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
-
-        .hero p.subtitle {
-            font-size: 1.2rem;
+        .hero p {
+            font-size: 1.1rem;
             color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-
-        /* Barra de Progresso com degradê mais reluzente */
-        .progress-wrapper {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            text-align: left;
-        }
-        .progress-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: var(--text-muted);
-        }
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: var(--surface-color);
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-        }
-        .progress-fill {
-            height: 100%;
-            /* Efeito reluzente metálico */
-            background: linear-gradient(90deg, #E6C200, #FFF59D, #FFD700); 
-            width: 78%; /* Simulando cota vendida */
-            border-radius: 6px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            font-weight: 400;
         }
 
         /* ==============================
-           Seleção de Cotas
+           Barra de Progresso (Cotômetro)
            ============================== */
-        .buy-section {
-            padding: 40px 0;
-            background: var(--surface-color);
+        .progress-wrapper {
+            margin: 30px auto 60px;
+            max-width: 600px;
+            width: 100%;
         }
 
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .progress-labels span:first-child { color: var(--text-white); }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            background: #101935;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #1c2748;
+        }
+
+        .progress-fill {
+            width: 78%;
+            height: 100%;
+            background: var(--gold-progress-gradient);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(253, 240, 166, 0.4);
+        }
+
+        /* ==============================
+           Pacotes (Cards)
+           ============================== */
         .section-title {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 35px;
         }
 
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
+            margin-bottom: 20px;
         }
 
-        .package-card {
-            background: var(--bg-color);
-            /* Borda usando o RGB do novo dourado (255, 215, 0) */
-            border: 1px solid rgba(255, 215, 0, 0.25); 
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-unselected);
+            border-radius: 10px;
             padding: 30px 20px;
-            border-radius: var(--radius);
             text-align: center;
             cursor: pointer;
-            transition: var(--transition);
             position: relative;
+            transition: var(--transition);
         }
 
-        .package-card:hover, .package-card.selected {
-            border-color: var(--primary);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25); /* Brilho dourado ao selecionar */
-            transform: translateY(-5px);
+        .card:hover {
+            border-color: rgba(204, 160, 60, 0.5);
         }
 
-        .popular-badge {
+        .card.selected {
+            border: 2px solid var(--border-selected);
+            box-shadow: 0 0 20px rgba(204, 160, 60, 0.15);
+            background: #081329;
+        }
+
+        .badge-popular {
             position: absolute;
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--success);
-            color: #000;
-            font-size: 12px;
-            font-weight: 700;
+            background: var(--gold-btn-gradient);
+            color: #1a1100;
+            font-size: 11px;
+            font-weight: 800;
             padding: 4px 12px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .package-card h3 {
+        .card h3 {
             font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--gold-mid);
         }
 
-        .package-card p {
+        .card.selected h3 {
+            background: var(--gold-text-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card p {
+            font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            min-height: 40px;
         }
 
-        .package-card .price {
-            font-size: 2rem;
+        .card .price {
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--text-color);
-        }
-
-        /* Resumo da Compra */
-        .checkout-bar {
-            max-width: 1000px;
-            margin: 40px auto 0;
-            background: var(--bg-color);
-            padding: 20px 30px;
-            border-radius: var(--radius);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--primary);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.1);
-        }
-
-        .checkout-info p { font-size: 14px; color: var(--text-muted); }
-        .checkout-info h4 { font-size: 1.5rem; color: var(--primary); }
-
-        .btn-checkout {
-            background: var(--success);
-            color: #000;
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 15px 40px;
-            border-radius: var(--radius);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-checkout:hover {
-            background: var(--primary-hover);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            color: var(--text-white);
         }
 
         /* ==============================
-           Footer
+           Checkout Bar
            ============================== */
-        footer {
-            background: #040812;
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 60px;
-            border-top: 1px solid var(--surface-color);
+        .checkout-bar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-selected);
+            border-radius: 10px;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(204, 160, 60, 0.05);
         }
 
-        footer p {
+        .checkout-info p {
+            font-size: 13px;
             color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 2px;
+        }
+
+        .checkout-info h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold-mid);
+        }
+
+        .btn-checkout {
+            background: var(--gold-btn-gradient);
+            color: #1a1100;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-checkout:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        /* ==============================
+           Trust Badges (Footer)
+           ============================== */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
+            padding-bottom: 40px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .trust-badges svg {
+            vertical-align: middle;
+            margin-right: 5px;
+            color: var(--gold-mid);
+        }
+
+        .dot {
+            font-size: 20px;
+            line-height: 0;
+            color: var(--text-muted);
         }
 
         /* ==============================
            Responsividade
            ============================== */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.8rem; }
-            .hero { padding-top: 30px; }
-            .carousel-control { width: 40px; height: 40px; }
-            .carousel-control.previous { left: 10px; }
-            .carousel-control.next { right: 10px; }
-            .checkout-bar { flex-direction: column; gap: 20px; text-align: center; }
+            .hero h1 { font-size: 2rem; }
+            .packages-grid { grid-template-columns: 1fr; }
+            .card p { min-height: auto; margin-bottom: 15px; }
+            .checkout-bar { flex-direction: column; text-align: center; gap: 20px; padding: 20px; }
             .btn-checkout { width: 100%; justify-content: center; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .carousel-slide,
-            .carousel-control,
-            .carousel-dot { transition: none; }
+            .trust-badges { flex-direction: column; gap: 10px; }
+            .dot { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="navbar">
-        <div class="container nav-content">
-            <div class="logo">
-                Kóò<span>premios</span>
-            </div>
-            <div class="nav-actions">
-                <button class="btn-login">Entrar</button>
-                <button class="btn-primary">Criar Conta</button>
-            </div>
+    <header>
+        <div class="logo">Kóopremíos</div>
+        <div class="nav-actions">
+            <a href="#">Entrar</a>
+            <button class="btn-gold">Criar Conta</button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <main>
-        <section class="hero container">
-            <div class="prize-image-container" id="prizeCarousel" role="region" aria-roledescription="carrossel" aria-label="Fotos da XRE 190 2026">
-                <figure class="carousel-slide active" aria-hidden="false">
-                    <img src="IMG_1737.jpg" alt="Foto 1 da XRE 190 2026" fetchpriority="high">
-                </figure>
-                <figure class="carousel-slide" aria-hidden="true">
-                    <img src="IMG_1757.jpg" alt="Foto 2 da XRE 190 2026" loading="lazy">
-                </figure>
-                <figure class="carousel-slide" aria-hidden="true">
-                    <img src="IMG_1820.jpg" alt="Foto 3 da XRE 190 2026" loading="lazy">
-                </figure>
-                <figure class="carousel-slide" aria-hidden="true">
-                    <img src="IMG_1827.jpg" alt="Foto 4 da XRE 190 2026" loading="lazy">
-                </figure>
-                <div class="badge-premium">Modelo 2026</div>
-                <button class="carousel-control previous" type="button" aria-label="Mostrar foto anterior">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <button class="carousel-control next" type="button" aria-label="Mostrar próxima foto">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-                <div class="carousel-dots" aria-label="Selecionar foto">
-                    <button class="carousel-dot active" type="button" aria-label="Mostrar foto 1" aria-current="true"></button>
-                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 2"></button>
-                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 3"></button>
-                    <button class="carousel-dot" type="button" aria-label="Mostrar foto 4"></button>
-                </div>
-            </div>
+    <main class="container">
+        <section class="hero">
+            <h1>Concorra a uma <span class="text-gold glow">XRE 190 2026!</span></h1>
+            <p>Sorteio autorizado pela Loteria Federal. Apenas R$ 0,99 a cota!</p>
             
-            <h1>Concorra a uma <span>XRE 190 2026</span>!</h1>
-            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,99 a cota!</p>
-
             <div class="progress-wrapper">
-                <div class="progress-stats">
+                <div class="progress-labels">
                     <span>Cotômetro</span>
-                    <span>78% Vendido</span>
+                    <span class="text-gold" style="font-weight: 700;">78% Vendido</span>
                 </div>
-                <div class="progress-bar">
+                <div class="progress-track">
                     <div class="progress-fill"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Seção de Compra / Pacotes -->
-        <section class="buy-section">
-            <div class="container">
-                <h2 class="section-title">Escolha seu Pacote da Sorte</h2>
-                
-                <div class="packages-grid">
-                    <!-- Pacote 1 -->
-                    <div class="package-card" data-qty="10" data-price="9.90" onclick="selectPackage(this)">
-                        <h3>10 Cotas</h3>
-                        <p>Para começar a brincadeira</p>
-                        <div class="price">R$ 9,90</div>
-                    </div>
-
-                    <!-- Pacote 2 -->
-                    <div class="package-card selected" data-qty="50" data-price="49.50" onclick="selectPackage(this)">
-                        <div class="popular-badge">Mais Popular</div>
-                        <h3>50 Cotas</h3>
-                        <p>Mais chances de ganhar</p>
-                        <div class="price">R$ 49,50</div>
-                    </div>
-
-                    <!-- Pacote 3 -->
-                    <div class="package-card" data-qty="100" data-price="89.00" onclick="selectPackage(this)">
-                        <h3>100 Cotas</h3>
-                        <p>Promoção: R$ 0,89 por cota</p>
-                        <div class="price">R$ 89,00</div>
-                    </div>
+        <section>
+            <h2 class="section-title">Escolha seu Pacote da Sorte</h2>
+            
+            <div class="packages-grid">
+                <!-- Pacote 1 -->
+                <div class="card" data-qty="10" data-price="9,90" onclick="selectPackage(this)">
+                    <h3>10 Cotas</h3>
+                    <p>Para começar a brincadeira</p>
+                    <div class="price">R$ 9,90</div>
                 </div>
 
-                <!-- Barra de Checkout Fixa na seção -->
-                <div class="checkout-bar">
-                    <div class="checkout-info">
-                        <p>Você está adquirindo:</p>
-                        <h4><span id="selected-qty">50</span> Cotas Selecionadas</h4>
-                    </div>
-                    <div class="checkout-action">
-                        <button class="btn-checkout">
-                            Pagar <span id="selected-price">R$ 49,50</span>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                        </button>
-                    </div>
+                <!-- Pacote 2 (Selecionado Padrão) -->
+                <div class="card selected" data-qty="50" data-price="49,50" onclick="selectPackage(this)">
+                    <div class="badge-popular">Mais Popular</div>
+                    <h3>50 Cotas</h3>
+                    <p>Mais chances de ganhar</p>
+                    <div class="price">R$ 49,50</div>
                 </div>
+
+                <!-- Pacote 3 -->
+                <div class="card" data-qty="100" data-price="89,00" onclick="selectPackage(this)">
+                    <h3>100 Cotas</h3>
+                    <p>Promoção: R$ 0,89 por cota</p>
+                    <div class="price">R$ 89,00</div>
+                </div>
+            </div>
+
+            <!-- Checkout -->
+            <div class="checkout-bar">
+                <div class="checkout-info">
+                    <p>Você está adquirindo:</p>
+                    <h4 class="text-gold"><span id="selected-qty">50</span> Cotas Selecionadas</h4>
+                </div>
+                <button class="btn-checkout">
+                    Pagar R$ <span id="selected-price">49,50</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
             </div>
         </section>
+
+        <!-- Selos de Confiança -->
+        <div class="trust-badges">
+            <span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                Ambiente 100% seguro
+            </span>
+            <span class="dot">•</span>
+            <span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                Sorteio com base na Loteria Federal
+            </span>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="logo" style="margin-bottom: 20px;">
-                Kóò<span>premios</span>
-            </div>
-            <p>&copy; 2026 Kóòpremios. Todos os direitos reservados.</p>
-            <p>Plataforma de sorteios baseada na Loteria Federal.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts da Página -->
     <script>
-        const carousel = document.getElementById('prizeCarousel');
-        const carouselSlides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-        const carouselDots = Array.from(carousel.querySelectorAll('.carousel-dot'));
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        let currentSlide = 0;
-        let carouselTimer;
-        let touchStartX = 0;
-
-        function showSlide(index) {
-            currentSlide = (index + carouselSlides.length) % carouselSlides.length;
-
-            carouselSlides.forEach((slide, slideIndex) => {
-                const isActive = slideIndex === currentSlide;
-                slide.classList.toggle('active', isActive);
-                slide.setAttribute('aria-hidden', String(!isActive));
-            });
-
-            carouselDots.forEach((dot, dotIndex) => {
-                const isActive = dotIndex === currentSlide;
-                dot.classList.toggle('active', isActive);
-                if (isActive) {
-                    dot.setAttribute('aria-current', 'true');
-                } else {
-                    dot.removeAttribute('aria-current');
-                }
-            });
-        }
-
-        function stopCarousel() {
-            window.clearInterval(carouselTimer);
-        }
-
-        function startCarousel() {
-            stopCarousel();
-            if (!reduceMotion) {
-                carouselTimer = window.setInterval(() => showSlide(currentSlide + 1), 5000);
-            }
-        }
-
-        carousel.querySelector('.previous').addEventListener('click', () => {
-            showSlide(currentSlide - 1);
-            startCarousel();
-        });
-
-        carousel.querySelector('.next').addEventListener('click', () => {
-            showSlide(currentSlide + 1);
-            startCarousel();
-        });
-
-        carouselDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showSlide(index);
-                startCarousel();
-            });
-        });
-
-        carousel.addEventListener('mouseenter', stopCarousel);
-        carousel.addEventListener('mouseleave', startCarousel);
-        carousel.addEventListener('focusin', stopCarousel);
-        carousel.addEventListener('focusout', startCarousel);
-        carousel.addEventListener('touchstart', event => {
-            touchStartX = event.changedTouches[0].clientX;
-            stopCarousel();
-        }, { passive: true });
-        carousel.addEventListener('touchend', event => {
-            const movement = event.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(movement) > 45) {
-                showSlide(currentSlide + (movement < 0 ? 1 : -1));
-            }
-            startCarousel();
-        }, { passive: true });
-
-        startCarousel();
-
-        /**
-         * Lógica simples para selecionar pacotes de cotas e 
-         * atualizar dinamicamente a interface do usuário (UI).
-         */
         function selectPackage(element) {
-            // Remove a classe 'selected' de todos os cartões
-            const cards = document.querySelectorAll('.package-card');
-            cards.forEach(card => card.classList.remove('selected'));
-
-            // Adiciona a classe 'selected' ao cartão clicado
+            // Remove seleção de todos
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+            // Adiciona seleção no clicado
             element.classList.add('selected');
 
-            // Captura os dados do cartão via data-attributes
+            // Pega os dados
             const qty = element.getAttribute('data-qty');
-            const price = parseFloat(element.getAttribute('data-price')).toFixed(2);
-
-            // Formata o preço para o padrão BRL (vírgula em vez de ponto)
-            const formattedPrice = `R$ ${price.replace('.', ',')}`;
-
-            // Atualiza os valores na barra de checkout
-            document.getElementById('selected-qty').innerText = qty;
-            document.getElementById('selected-price').innerText = formattedPrice;
+            const price = element.getAttribute('data-price');
             
-            // Opcional: Feedback tátil ou visual extra
-            animateCheckoutBar();
-        }
-
-        function animateCheckoutBar() {
+            // Atualiza a barra de checkout
+            document.getElementById('selected-qty').innerText = qty;
+            document.getElementById('selected-price').innerText = price;
+            
+            // Pequena animação
             const checkoutBar = document.querySelector('.checkout-bar');
-            checkoutBar.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                checkoutBar.style.transform = 'scale(1)';
-            }, 150);
+            checkoutBar.style.transform = 'scale(0.99)';
+            setTimeout(() => checkoutBar.style.transform = 'scale(1)', 150);
         }
     </script>
 </body>
