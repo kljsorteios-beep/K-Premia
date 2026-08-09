@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         /* ==============================
-            Variáveis e Reset
-            ============================== */
+           Variáveis e Reset
+           ============================== */
         :root {
             /* GRADIENTE DOURADO METÁLICO PREMIUM */
             --gold-dark: #8a631c;
@@ -60,8 +60,8 @@
         }
 
         /* ==============================
-            Navegação (Header)
-            ============================== */
+           Navegação (Header)
+           ============================== */
         header.navbar {
             background-color: rgba(8, 16, 33, 0.95);
             backdrop-filter: blur(10px);
@@ -116,8 +116,8 @@
         }
 
         /* ==============================
-            Hero Section
-            ============================== */
+           Hero Section
+           ============================== */
         .hero {
             margin-top: 70px;
             padding: 60px 0;
@@ -155,32 +155,6 @@
             object-fit: cover;
         }
 
-        /* Legenda/Descrição da Moto sobre a imagem */
-        .slide-caption {
-            position: absolute;
-            bottom: 60px;
-            left: 20px;
-            right: 20px;
-            background: rgba(8, 16, 33, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: left;
-            z-index: 5;
-        }
-
-        .slide-caption h4 {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            color: var(--text-color);
-        }
-
-        .slide-caption p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
         .badge-premium {
             position: absolute;
             top: 20px;
@@ -194,7 +168,6 @@
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             letter-spacing: 1px;
-            z-index: 5;
         }
 
         .hero h1 {
@@ -248,8 +221,8 @@
         }
 
         /* ==============================
-            Seleção de Cotas
-            ============================== */
+           Seleção de Cotas
+           ============================== */
         .buy-section {
             padding: 50px 0;
             background: var(--surface-color);
@@ -264,9 +237,9 @@
 
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -322,7 +295,7 @@
 
         /* Resumo da Compra */
         .checkout-bar {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 50px auto 0;
             background: rgba(8, 16, 33, 0.8);
             padding: 25px 35px;
@@ -361,12 +334,12 @@
         }
 
         /* ==============================
-            Footer e Controles do Carrossel 
-            ============================== */
+           Footer e Controles do Carrossel 
+           ============================== */
         .carousel-control {
             position: absolute;
             top: 50%;
-            z-index: 6;
+            z-index: 4;
             width: 46px;
             height: 46px;
             border-radius: 50%;
@@ -387,7 +360,7 @@
             position: absolute;
             left: 50%;
             bottom: 18px;
-            z-index: 6;
+            z-index: 4;
             display: flex;
             gap: 9px;
             padding: 9px 12px;
@@ -437,34 +410,18 @@
 
     <main>
         <section class="hero container">
-            <div class="prize-image-container" id="prizeCarousel">
+            <div class="prize-image-container clickable" id="prizeCarousel" title="Clique para ver fotos e comprar cotas">
                 <figure class="carousel-slide active">
                     <img src="IMG_1737.jpg" alt="Foto 1 da XRE 190 2026">
-                    <div class="slide-caption">
-                        <h4>Visão Frontal & Painel</h4>
-                        <p>Design agressivo e moderno com iluminação Full LED.</p>
-                    </div>
                 </figure>
                 <figure class="carousel-slide">
                     <img src="IMG_1757.jpg" alt="Foto 2 da XRE 190 2026">
-                    <div class="slide-caption">
-                        <h4>Perfil Lateral Completo</h4>
-                        <p>Pronta para qualquer terreno com suspensão de alta performance.</p>
-                    </div>
                 </figure>
                 <figure class="carousel-slide">
                     <img src="IMG_1820.jpg" alt="Foto 3 da XRE 190 2026">
-                    <div class="slide-caption">
-                        <h4>Traseira & Escapamento</h4>
-                        <p>Robustez e sofisticação em cada detalhe do modelo 2026.</p>
-                    </div>
                 </figure>
                 <figure class="carousel-slide">
                     <img src="IMG_1827.jpg" alt="Foto 4 da XRE 190 2026">
-                    <div class="slide-caption">
-                        <h4>Detalhes de Acabamento</h4>
-                        <p>Grafismo exclusivo e motorização econômica de última geração.</p>
-                    </div>
                 </figure>
                 <div class="badge-premium">Modelo 2026</div>
                 <button class="carousel-control previous">
@@ -482,7 +439,7 @@
             </div>
             
             <h1>Concorra a uma <span class="text-gold">XRE 190 2026</span>!</h1>
-            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,50 a cota!</p>
+            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,50 por cota!</p>
 
             <div class="progress-wrapper">
                 <div class="progress-stats">
@@ -500,46 +457,34 @@
                 <h2 class="section-title">Escolha seu Pacote da Sorte</h2>
                 
                 <div class="packages-grid">
-                    <div class="package-card" data-qty="10" data-price="5.00" onclick="selectPackage(this)">
+                    <div class="package-card" data-qty="10" data-price="9.90" onclick="selectPackage(this)">
                         <h3 class="text-gold">10 Cotas</h3>
                         <p>Para começar a brincadeira</p>
-                        <div class="price">R$ 5,00</div>
+                        <div class="price">R$ 9,90</div>
                     </div>
 
-                    <div class="package-card" data-qty="50" data-price="25.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">50 Cotas</h3>
-                        <p>Boas chances de ganhar</p>
-                        <div class="price">R$ 25,00</div>
-                    </div>
-
-                    <div class="package-card selected" data-qty="100" data-price="50.00" onclick="selectPackage(this)">
+                    <div class="package-card selected" data-qty="50" data-price="49.50" onclick="selectPackage(this)">
                         <div class="popular-badge">Mais Popular</div>
+                        <h3 class="text-gold">50 Cotas</h3>
+                        <p>Mais chances de ganhar</p>
+                        <div class="price">R$ 49,50</div>
+                    </div>
+
+                    <div class="package-card" data-qty="100" data-price="89.00" onclick="selectPackage(this)">
                         <h3 class="text-gold">100 Cotas</h3>
-                        <p>Mais chances de levar a moto</p>
-                        <div class="price">R$ 50,00</div>
-                    </div>
-
-                    <div class="package-card" data-qty="200" data-price="100.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">200 Cotas</h3>
-                        <p>Super chance no sorteio</p>
-                        <div class="price">R$ 100,00</div>
-                    </div>
-
-                    <div class="package-card" data-qty="500" data-price="250.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">500 Cotas</h3>
-                        <p>Combo Master da Sorte</p>
-                        <div class="price">R$ 250,00</div>
+                        <p>Promoção: R$ 0,89 por cota</p>
+                        <div class="price">R$ 89,00</div>
                     </div>
                 </div>
 
                 <div class="checkout-bar">
                     <div class="checkout-info">
                         <p>Você está adquirindo:</p>
-                        <h4><span class="text-gold" id="selected-qty">100</span> Cotas Selecionadas</h4>
+                        <h4><span class="text-gold" id="selected-qty">50</span> Cotas Selecionadas</h4>
                     </div>
                     <div class="checkout-action">
                         <button class="btn-checkout">
-                            Pagar <span id="selected-price">R$ 50,00</span>
+                            Pagar <span id="selected-price">R$ 49,50</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                         </button>
                     </div>
@@ -558,7 +503,7 @@
     </footer>
 
     <script>
-        // Lógica do Carrossel e Interatividade ao Clicar na Imagem
+        // Lógica do Carrossel (Simplificada para foco visual)
         const carousel = document.getElementById('prizeCarousel');
         const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
         const dots = Array.from(carousel.querySelectorAll('.carousel-dot'));
@@ -570,31 +515,11 @@
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
         }
 
-        // Clicar na imagem em destaque avança para a próxima foto
-        carousel.addEventListener('click', (e) => {
-            // Evita disparar se clicar nos botões de controle ou dots diretamente
-            if(e.target.closest('.carousel-control') || e.target.closest('.carousel-dots')) return;
-            showSlide(currentSlide + 1);
-        });
+        carousel.querySelector('.previous').addEventListener('click', () => showSlide(currentSlide - 1));
+        carousel.querySelector('.next').addEventListener('click', () => showSlide(currentSlide + 1));
+        dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
 
-        carousel.querySelector('.previous').addEventListener('click', (e) => {
-            e.stopPropagation();
-            showSlide(currentSlide - 1);
-        });
-        
-        carousel.querySelector('.next').addEventListener('click', (e) => {
-            e.stopPropagation();
-            showSlide(currentSlide + 1);
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showSlide(index);
-            });
-        });
-
-        // Lógica de Seleção de Cotas (R$ 0,50 cada)
+        // Lógica de Seleção
         function selectPackage(element) {
             document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
             element.classList.add('selected');
