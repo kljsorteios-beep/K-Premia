@@ -10,15 +10,15 @@
            Variáveis e Reset
            ============================== */
         :root {
-            --primary: #e11d2e;
-            --primary-hover: #b80f1e;
-            --bg-color: #121214;
-            --surface-color: #202024;
-            --surface-hover: #29292e;
+            --primary: #ffd100; /* Amarelo */
+            --primary-hover: #e6bc00; /* Amarelo um pouco mais escuro para hover */
+            --bg-color: #081021; /* Azul marinho muito escuro */
+            --surface-color: #0f172a; /* Azul marinho de superfície */
+            --surface-hover: #1e293b; 
             --text-color: #e1e1e6;
             --text-muted: #a8a8b3;
             --danger: #e74c3c;
-            --success: #e11d2e;
+            --success: #ffd100; /* Alterado para amarelo para manter o padrão */
             --radius: 8px;
             --transition: all 0.3s ease;
         }
@@ -45,7 +45,7 @@
            Navegação (Header)
            ============================== */
         header.navbar {
-            background-color: rgba(18, 18, 20, 0.95);
+            background-color: rgba(8, 16, 33, 0.95); /* Adaptado para o azul escuro */
             backdrop-filter: blur(10px);
             position: fixed;
             top: 0; width: 100%;
@@ -147,7 +147,7 @@
             display: grid;
             place-items: center;
             color: #fff;
-            background: rgba(18, 18, 20, 0.72);
+            background: rgba(8, 16, 33, 0.72); /* Adaptado para o azul escuro */
             border: 1px solid rgba(255, 255, 255, 0.22);
             backdrop-filter: blur(8px);
             transform: translateY(-50%);
@@ -157,6 +157,7 @@
         .carousel-control:hover,
         .carousel-control:focus-visible {
             background: var(--primary);
+            color: #000; /* Ajuste para dar contraste no hover amarelo */
             transform: translateY(-50%) scale(1.08);
         }
 
@@ -178,7 +179,7 @@
             gap: 9px;
             padding: 9px 12px;
             border-radius: 999px;
-            background: rgba(18, 18, 20, 0.62);
+            background: rgba(8, 16, 33, 0.62); /* Adaptado para o azul escuro */
             backdrop-filter: blur(8px);
             transform: translateX(-50%);
         }
@@ -245,7 +246,7 @@
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), #ff6978);
+            background: linear-gradient(90deg, var(--primary), #ffea80); /* Degrade amarelo */
             width: 78%; /* Simulando cota vendida */
             border-radius: 6px;
         }
@@ -274,7 +275,7 @@
 
         .package-card {
             background: var(--bg-color);
-            border: 1px solid rgba(225, 29, 46, 0.25);
+            border: 1px solid rgba(255, 209, 0, 0.25); /* rgba do novo primary */
             padding: 30px 20px;
             border-radius: var(--radius);
             text-align: center;
@@ -285,7 +286,7 @@
 
         .package-card:hover, .package-card.selected {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(225, 29, 46, 0.2);
+            box-shadow: 0 0 20px rgba(255, 209, 0, 0.2); /* rgba do novo primary */
             transform: translateY(-5px);
         }
 
@@ -295,7 +296,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: var(--success);
-            color: #fff;
+            color: #000;
             font-size: 12px;
             font-weight: 700;
             padding: 4px 12px;
@@ -337,7 +338,7 @@
 
         .btn-checkout {
             background: var(--success);
-            color: #fff;
+            color: #000;
             font-size: 1.1rem;
             font-weight: 700;
             padding: 15px 40px;
@@ -357,7 +358,7 @@
            Footer
            ============================== */
         footer {
-            background: #000;
+            background: #040812; /* Azul extremamente escuro (quase preto) */
             padding: 40px 0;
             text-align: center;
             margin-top: 60px;
