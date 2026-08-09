@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         /* ==============================
-           Variáveis e Reset
-           ============================== */
+            Variáveis e Reset
+            ============================== */
         :root {
             /* GRADIENTE DOURADO METÁLICO PREMIUM */
             --gold-dark: #8a631c;
@@ -42,6 +42,7 @@
             color: var(--text-color);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
 
         a { text-decoration: none; color: inherit; }
@@ -60,8 +61,8 @@
         }
 
         /* ==============================
-           Navegação (Header)
-           ============================== */
+            Navegação (Header)
+            ============================== */
         header.navbar {
             background-color: rgba(8, 16, 33, 0.95);
             backdrop-filter: blur(10px);
@@ -116,14 +117,15 @@
         }
 
         /* ==============================
-           Hero Section
-           ============================== */
+            Hero Section (Destaque Principal)
+            ============================== */
         .hero {
             margin-top: 70px;
             padding: 60px 0;
             text-align: center;
         }
 
+        /* Imagem da Moto como Link/Botão direto para a seção de cotas */
         .prize-image-container {
             max-width: 680px;
             margin: 0 auto 30px;
@@ -133,26 +135,70 @@
             position: relative;
             aspect-ratio: 3 / 4;
             background: var(--surface-color);
+            display: block;
+            cursor: pointer;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transition: var(--transition);
         }
 
-        .carousel-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.55s ease, visibility 0.55s ease;
+        .prize-image-container:hover {
+            border-color: var(--primary);
+            transform: scale(1.01);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
         }
 
-        .carousel-slide.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .carousel-slide img {
+        .prize-image-container img {
             width: 100%;
             height: 100%;
             display: block;
             object-fit: cover;
+        }
+
+        /* Detalhes Técnicos e FIPE sobrepostos na imagem em destaque */
+        .moto-info-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(8, 16, 33, 0.95) 20%, rgba(8, 16, 33, 0.7) 70%, transparent 100%);
+            padding: 25px 20px 20px;
+            text-align: left;
+        }
+
+        .moto-info-overlay h3 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 6px;
+            font-weight: 900;
+        }
+
+        .fipe-tag {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .moto-info-overlay p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .click-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .badge-premium {
@@ -168,6 +214,7 @@
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             letter-spacing: 1px;
+            z-index: 5;
         }
 
         .hero h1 {
@@ -221,8 +268,8 @@
         }
 
         /* ==============================
-           Seleção de Cotas
-           ============================== */
+            Seleção de Cotas & Galeria Completa
+            ============================== */
         .buy-section {
             padding: 50px 0;
             background: var(--surface-color);
@@ -231,15 +278,58 @@
         .section-title {
             text-align: center;
             font-size: 2.2rem;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             font-weight: 700;
         }
 
+        /* Galeria de Fotos Adicionais dentro da aba de cotas */
+        .gallery-container {
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            text-align: center;
+        }
+
+        .gallery-container h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--bg-color);
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Opções de Pacotes de Cotas (R$ 0,50 cada) */
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -295,7 +385,7 @@
 
         /* Resumo da Compra */
         .checkout-bar {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 50px auto 0;
             background: rgba(8, 16, 33, 0.8);
             padding: 25px 35px;
@@ -333,51 +423,6 @@
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
         }
 
-        /* ==============================
-           Footer e Controles do Carrossel 
-           ============================== */
-        .carousel-control {
-            position: absolute;
-            top: 50%;
-            z-index: 4;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            color: #fff;
-            background: rgba(8, 16, 33, 0.72);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            backdrop-filter: blur(8px);
-            transform: translateY(-50%);
-            transition: var(--transition);
-        }
-        .carousel-control:hover { background: var(--gold-gradient); color: #000; border: none; transform: translateY(-50%) scale(1.1); }
-        .carousel-control.previous { left: 16px; }
-        .carousel-control.next { right: 16px; }
-
-        .carousel-dots {
-            position: absolute;
-            left: 50%;
-            bottom: 18px;
-            z-index: 4;
-            display: flex;
-            gap: 9px;
-            padding: 9px 12px;
-            border-radius: 999px;
-            background: rgba(8, 16, 33, 0.62);
-            backdrop-filter: blur(8px);
-            transform: translateX(-50%);
-        }
-        .carousel-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.45);
-            transition: var(--transition);
-        }
-        .carousel-dot.active { background: var(--primary); transform: scale(1.35); box-shadow: 0 0 8px var(--primary); }
-
         footer {
             background: #040812;
             padding: 40px 0;
@@ -409,37 +454,24 @@
     </header>
 
     <main>
+        <!-- Seção Hero com Imagem em Destaque que Funciona como Botão -->
         <section class="hero container">
-            <div class="prize-image-container clickable" id="prizeCarousel" title="Clique para ver fotos e comprar cotas">
-                <figure class="carousel-slide active">
-                    <img src="IMG_1737.jpg" alt="Foto 1 da XRE 190 2026">
-                </figure>
-                <figure class="carousel-slide">
-                    <img src="IMG_1757.jpg" alt="Foto 2 da XRE 190 2026">
-                </figure>
-                <figure class="carousel-slide">
-                    <img src="IMG_1820.jpg" alt="Foto 3 da XRE 190 2026">
-                </figure>
-                <figure class="carousel-slide">
-                    <img src="IMG_1827.jpg" alt="Foto 4 da XRE 190 2026">
-                </figure>
+            <a href="#cotasSection" class="prize-image-container">
+                <img src="IMG_1737.jpg" alt="Honda XRE 190 2026 em Destaque">
                 <div class="badge-premium">Modelo 2026</div>
-                <button class="carousel-control previous">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <button class="carousel-control next">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-                <div class="carousel-dots">
-                    <button class="carousel-dot active"></button>
-                    <button class="carousel-dot"></button>
-                    <button class="carousel-dot"></button>
-                    <button class="carousel-dot"></button>
+                <div class="moto-info-overlay">
+                    <span class="fipe-tag">Tabela FIPE: R$ 22.500,00</span>
+                    <h3>Honda XRE 190 Adventure 2026</h3>
+                    <p>Zero km, documentos inclusos, emplacada e com tanque cheio!</p>
+                    <div class="click-hint">
+                        <span>Ver fotos e comprar cotas</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                    </div>
                 </div>
-            </div>
+            </a>
             
             <h1>Concorra a uma <span class="text-gold">XRE 190 2026</span>!</h1>
-            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas R$ 0,50 por cota!</p>
+            <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas <strong class="text-gold">R$ 0,50</strong> a cota!</p>
 
             <div class="progress-wrapper">
                 <div class="progress-stats">
@@ -452,39 +484,73 @@
             </div>
         </section>
 
-        <section class="buy-section">
+        <!-- Seção de Compra de Cotas e Galeria -->
+        <section class="buy-section" id="cotasSection">
             <div class="container">
-                <h2 class="section-title">Escolha seu Pacote da Sorte</h2>
+                <h2 class="section-title">Garanta suas Cotas</h2>
+
+                <!-- Galeria Completa de Fotos -->
+                <div class="gallery-container">
+                    <h3>Fotos Detalhadas da Moto</h3>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="IMG_1737.jpg" alt="Foto XRE 1">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="IMG_1757.jpg" alt="Foto XRE 2">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="IMG_1820.jpg" alt="Foto XRE 3">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="IMG_1827.jpg" alt="Foto XRE 4">
+                        </div>
+                    </div>
+                </div>
                 
+                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 30px;">Escolha seu Pacote da Sorte</h2>
+
                 <div class="packages-grid">
-                    <div class="package-card" data-qty="10" data-price="9.90" onclick="selectPackage(this)">
+                    <div class="package-card" data-qty="10" data-price="5.00" onclick="selectPackage(this)">
                         <h3 class="text-gold">10 Cotas</h3>
-                        <p>Para começar a brincadeira</p>
-                        <div class="price">R$ 9,90</div>
+                        <p>R$ 0,50 cada</p>
+                        <div class="price">R$ 5,00</div>
                     </div>
 
-                    <div class="package-card selected" data-qty="50" data-price="49.50" onclick="selectPackage(this)">
-                        <div class="popular-badge">Mais Popular</div>
+                    <div class="package-card" data-qty="50" data-price="25.00" onclick="selectPackage(this)">
                         <h3 class="text-gold">50 Cotas</h3>
-                        <p>Mais chances de ganhar</p>
-                        <div class="price">R$ 49,50</div>
+                        <p>R$ 0,50 cada</p>
+                        <div class="price">R$ 25,00</div>
                     </div>
 
-                    <div class="package-card" data-qty="100" data-price="89.00" onclick="selectPackage(this)">
+                    <div class="package-card selected" data-qty="100" data-price="50.00" onclick="selectPackage(this)">
+                        <div class="popular-badge">Mais Popular</div>
                         <h3 class="text-gold">100 Cotas</h3>
-                        <p>Promoção: R$ 0,89 por cota</p>
-                        <div class="price">R$ 89,00</div>
+                        <p>R$ 0,50 cada</p>
+                        <div class="price">R$ 50,00</div>
+                    </div>
+
+                    <div class="package-card" data-qty="200" data-price="100.00" onclick="selectPackage(this)">
+                        <h3 class="text-gold">200 Cotas</h3>
+                        <p>R$ 0,50 cada</p>
+                        <div class="price">R$ 100,00</div>
+                    </div>
+
+                    <div class="package-card" data-qty="500" data-price="250.00" onclick="selectPackage(this)">
+                        <h3 class="text-gold">500 Cotas</h3>
+                        <p>Combo Master</p>
+                        <div class="price">R$ 250,00</div>
                     </div>
                 </div>
 
                 <div class="checkout-bar">
                     <div class="checkout-info">
                         <p>Você está adquirindo:</p>
-                        <h4><span class="text-gold" id="selected-qty">50</span> Cotas Selecionadas</h4>
+                        <h4><span class="text-gold" id="selected-qty">100</span> Cotas Selecionadas</h4>
                     </div>
                     <div class="checkout-action">
                         <button class="btn-checkout">
-                            Pagar <span id="selected-price">R$ 49,50</span>
+                            Pagar <span id="selected-price">R$ 50,00</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                         </button>
                     </div>
@@ -503,23 +569,7 @@
     </footer>
 
     <script>
-        // Lógica do Carrossel (Simplificada para foco visual)
-        const carousel = document.getElementById('prizeCarousel');
-        const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-        const dots = Array.from(carousel.querySelectorAll('.carousel-dot'));
-        let currentSlide = 0;
-
-        function showSlide(index) {
-            currentSlide = (index + slides.length) % slides.length;
-            slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide));
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
-        }
-
-        carousel.querySelector('.previous').addEventListener('click', () => showSlide(currentSlide - 1));
-        carousel.querySelector('.next').addEventListener('click', () => showSlide(currentSlide + 1));
-        dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
-
-        // Lógica de Seleção
+        // Lógica de Seleção de Pacotes de Cotas (R$ 0,50 cada)
         function selectPackage(element) {
             document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
             element.classList.add('selected');
