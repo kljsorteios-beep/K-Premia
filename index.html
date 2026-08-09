@@ -10,15 +10,17 @@
            Variáveis e Reset
            ============================== */
         :root {
-            --primary: #d4af37; /* Dourado */
-            --primary-hover: #aa8c2c; /* Dourado um pouco mais escuro para hover */
+            /* NOVO DOURADO: Brilhante, Premium e Vibrante */
+            --primary: #FFD700; 
+            --primary-hover: #E6C200; /* Dourado levemente mais escuro para hover */
+            
             --bg-color: #081021; /* Azul marinho muito escuro */
             --surface-color: #0f172a; /* Azul marinho de superfície */
             --surface-hover: #1e293b; 
             --text-color: #e1e1e6;
             --text-muted: #a8a8b3;
             --danger: #e74c3c;
-            --success: #d4af37; /* Dourado */
+            --success: #FFD700; /* Dourado brilhante */
             --radius: 8px;
             --transition: all 0.3s ease;
         }
@@ -208,6 +210,7 @@
             font-weight: 700;
             font-size: 14px;
             text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); /* Brilho leve no badge */
         }
 
         .hero h1 {
@@ -216,7 +219,7 @@
             color: var(--text-color);
         }
 
-        .hero h1 span { color: var(--primary); }
+        .hero h1 span { color: var(--primary); text-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
 
         .hero p.subtitle {
             font-size: 1.2rem;
@@ -224,7 +227,7 @@
             margin-bottom: 30px;
         }
 
-        /* Barra de Progresso */
+        /* Barra de Progresso com degradê mais reluzente */
         .progress-wrapper {
             max-width: 600px;
             margin: 0 auto 30px;
@@ -243,12 +246,15 @@
             background: var(--surface-color);
             border-radius: 6px;
             overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), #f5d76e); /* Degrade dourado claro */
+            /* Efeito reluzente metálico */
+            background: linear-gradient(90deg, #E6C200, #FFF59D, #FFD700); 
             width: 78%; /* Simulando cota vendida */
             border-radius: 6px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
 
         /* ==============================
@@ -275,7 +281,8 @@
 
         .package-card {
             background: var(--bg-color);
-            border: 1px solid rgba(212, 175, 55, 0.25); /* rgba do novo primary dourado */
+            /* Borda usando o RGB do novo dourado (255, 215, 0) */
+            border: 1px solid rgba(255, 215, 0, 0.25); 
             padding: 30px 20px;
             border-radius: var(--radius);
             text-align: center;
@@ -286,7 +293,7 @@
 
         .package-card:hover, .package-card.selected {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); /* rgba do novo primary dourado */
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25); /* Brilho dourado ao selecionar */
             transform: translateY(-5px);
         }
 
@@ -301,6 +308,7 @@
             font-weight: 700;
             padding: 4px 12px;
             border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
 
         .package-card h3 {
@@ -331,6 +339,7 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--primary);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.1);
         }
 
         .checkout-info p { font-size: 14px; color: var(--text-muted); }
@@ -352,6 +361,7 @@
         .btn-checkout:hover {
             background: var(--primary-hover);
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
         }
 
         /* ==============================
@@ -410,18 +420,18 @@
     <main>
         <section class="hero container">
             <div class="prize-image-container" id="prizeCarousel" role="region" aria-roledescription="carrossel" aria-label="Fotos da XRE 190 2026">
-            <figure class="carousel-slide active" aria-hidden="false">
-    <img src="IMG_1737.jpg" alt="Foto 1 da XRE 190 2026" fetchpriority="high">
-</figure>
-<figure class="carousel-slide" aria-hidden="true">
-    <img src="IMG_1757.jpg" alt="Foto 2 da XRE 190 2026" loading="lazy">
-</figure>
-<figure class="carousel-slide" aria-hidden="true">
-    <img src="IMG_1820.jpg" alt="Foto 3 da XRE 190 2026" loading="lazy">
-</figure>
-<figure class="carousel-slide" aria-hidden="true">
-    <img src="IMG_1827.jpg" alt="Foto 4 da XRE 190 2026" loading="lazy">
-</figure>
+                <figure class="carousel-slide active" aria-hidden="false">
+                    <img src="IMG_1737.jpg" alt="Foto 1 da XRE 190 2026" fetchpriority="high">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="IMG_1757.jpg" alt="Foto 2 da XRE 190 2026" loading="lazy">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="IMG_1820.jpg" alt="Foto 3 da XRE 190 2026" loading="lazy">
+                </figure>
+                <figure class="carousel-slide" aria-hidden="true">
+                    <img src="IMG_1827.jpg" alt="Foto 4 da XRE 190 2026" loading="lazy">
+                </figure>
                 <div class="badge-premium">Modelo 2026</div>
                 <button class="carousel-control previous" type="button" aria-label="Mostrar foto anterior">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
