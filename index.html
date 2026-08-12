@@ -881,5 +881,30 @@
             }
         });
     </script>
+    <!-- Conexão com o Banco de Dados Firebase -->
+<script type="module">
+  // 1. Importar o núcleo do Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  // 2. Importar o módulo do Banco de Dados (Firestore)
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // 3. Suas credenciais exclusivas
+  const firebaseConfig = {
+    apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98", // Copie a sua chave inteira (AIzaSy...)
+    authDomain: "kopremia-128fe.firebaseapp.com",
+    projectId: "kopremia-128fe",
+    storageBucket: "kopremia-128fe.firebasestorage.app",
+    messagingSenderId: "575510944994",
+    appId: "1:575510944994:web:a7be838ad3841b6515d2bb",
+    measurementId: "G-DRLLR56Z6Z"
+  };
+
+  // 4. Inicializar os serviços
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Teste de conexão
+  console.log("Firebase conectado com sucesso ao K-Premia!");
+</script>
 </body>
 </html>
