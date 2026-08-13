@@ -282,7 +282,7 @@
         .progress-fill {
             height: 100%;
             background: var(--gold-gradient);
-            width: 78%; 
+            width: 0%; 
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
             background-size: 200% auto;
@@ -634,8 +634,8 @@
                 </button>
                 <div class="badge-premium">Modelo 2026</div>
                 <div class="moto-info-overlay">
-                    <span class="fipe-tag">Tabela FIPE: R$ 22.500,00</span>
-                    <h3>Honda XRE 190 Adventure 2026</h3>
+                    <span class="fipe-tag">Tabela FIPE: R$ 27.000,00</span>
+                    <h3>Honda XRE 190 2026</h3>
                     <p>Zero km, documentos inclusos, emplacada e com tanque cheio!</p>
                     <div class="click-hint">
                         <span>Ver fotos e comprar cotas</span>
@@ -647,7 +647,7 @@
             <div class="progress-wrapper">
                 <div class="progress-stats">
                     <span>Cotômetro</span>
-                    <span class="text-gold">78% Vendido</span>
+                    <span class="text-gold" id="progress-text">0% Vendido</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
@@ -838,5 +838,24 @@
             if (e.key === 'ArrowRight') changeLightbox(1);
         });
     </script>
+    <script>
+    // Função para atualizar a barra e o texto do cotômetro
+    function atualizarCotometro(cotasVendidas, totalCotas = 1000) {
+        // Calcula a porcentagem real (ex: 0 de 1000 cotas = 0%)
+        let porcentagem = (cotasVendidas / totalCotas) * 100;
+        if (porcentagem > 100) porcentagem = 100;
+
+        const fillElem = document.querySelector('.progress-fill');
+        const textElem = document.getElementById('progress-text');
+
+        if (fillElem) fillElem.style.width = porcentagem.toFixed(0) + '%';
+        if (textElem) textElem.innerText = porcentagem.toFixed(0) + '% Vendido';
+    }
+
+    // Inicializa com 0 cotas vendidas
+    document.addEventListener("DOMContentLoaded", function() {
+        atualizarCotometro(0, 1000); 
+    });
+</script>
 </body>
 </html>
