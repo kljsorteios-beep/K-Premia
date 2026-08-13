@@ -904,30 +904,32 @@
   console.log("Firebase conectado com sucesso ao K-Premia!");
 
   // Função para popular as cotas (roda automaticamente ao carregar)
-  async function popularCotas(quantidade) {
-      try {
-          const batch = writeBatch(db);
-          const colRef = collection(db, "cotas");
+  async function popularCotas(total) {
+    const batchSize = 500; // Limite do Firestore
+    const colRef = collection(db, "cotas");
+    
+    for (let i = 1; i <= total; i += batchSize) {
+        let batch = writeBatch(db);
+        let end = Math.min(i + batchSize - 1, total);
+        
+        for (let j = i; j <= end; j++) {
+            const docRef = doc(colRef, j.toString());
+            batch.set(docRef, {
+                numero: j,
+                status: "disponivel",
+                comprador: "",
+                cpf: ""
+            });
+        }
+        
+        await batch.commit();
+        console.log(`Lote concluído: cotas ${i} até ${end}`);
+    }
+    console.log("Sucesso total! 10.000 cotas criadas no Firestore.");
+}
 
-          for (let i = 1; i <= quantidade; i++) {
-              const docRef = doc(colRef, i.toString());
-              batch.set(docRef, {
-                  numero: i,
-                  status: "disponivel",
-                  comprador: "",
-                  cpf: ""
-              });
-          }
-
-          await batch.commit();
-          console.log(`Sucesso! ${quantidade} cotas criadas no Firestore.`);
-      } catch (error) {
-          console.error("Erro ao popular cotas:", error);
-      }
-  }
-
-  // Executa o povoamento das 500 cotas
-  popularCotas(500);
+// Chame assim para gerar 10 mil
+popularCotas(10000);
 </script>
 </body>
 </html>
