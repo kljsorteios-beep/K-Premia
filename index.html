@@ -882,15 +882,14 @@
         });
     </script>
     <!-- Conexão com o Banco de Dados Firebase -->
+<!-- Conexão e Inicialização do Banco de Dados Firebase -->
 <script type="module">
-  // 1. Importar o núcleo do Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  // 2. Importar o módulo do Banco de Dados (Firestore)
-  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, collection, doc, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // 3. Suas credenciais exclusivas
+  // Suas credenciais
   const firebaseConfig = {
-    apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98", // Copie a sua chave inteira (AIzaSy...)
+    apiKey: "AIzaSyAlsm6JEw1I3IseTQcG3hKtlHjimANRj98",
     authDomain: "kopremia-128fe.firebaseapp.com",
     projectId: "kopremia-128fe",
     storageBucket: "kopremia-128fe.firebasestorage.app",
@@ -899,38 +898,36 @@
     measurementId: "G-DRLLR56Z6Z"
   };
 
-  // 4. Inicializar os serviços
+  // Inicializar Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
-  // Teste de conexão
   console.log("Firebase conectado com sucesso ao K-Premia!");
+
+  // Função para popular as cotas (roda automaticamente ao carregar)
+  async function popularCotas(quantidade) {
+      try {
+          const batch = writeBatch(db);
+          const colRef = collection(db, "cotas");
+
+          for (let i = 1; i <= quantidade; i++) {
+              const docRef = doc(colRef, i.toString());
+              batch.set(docRef, {
+                  numero: i,
+                  status: "disponivel",
+                  comprador: "",
+                  cpf: ""
+              });
+          }
+
+          await batch.commit();
+          console.log(`Sucesso! ${quantidade} cotas criadas no Firestore.`);
+      } catch (error) {
+          console.error("Erro ao popular cotas:", error);
+      }
+  }
+
+  // Executa o povoamento das 500 cotas
+  popularCotas(500);
 </script>
-    // Importe a função writeBatch e doc do Firestore
-import { getFirestore, collection, doc, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-async function popularCotas(quantidade) {
-    const db = getFirestore();
-    const batch = writeBatch(db);
-    const colRef = collection(db, "cotas");
-
-    for (let i = 1; i <= quantidade; i++) {
-        // Criamos uma referência para um documento com o ID igual ao número da cota
-        const docRef = doc(colRef, i.toString());
-        batch.set(docRef, {
-            numero: i,
-            status: "disponivel", // opções: disponivel, pendente, pago
-            comprador: "",
-            cpf: ""
-        });
-    }
-
-    // Executa a escrita em lote
-    await batch.commit();
-    console.log(`Sucesso! ${quantidade} cotas criadas no Firestore.`);
-}
-
-// Chame a função passando a quantidade desejada (ex: 500 cotas)
-popularCotas(500);
 </body>
 </html>
