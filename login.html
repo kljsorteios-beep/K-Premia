@@ -131,17 +131,8 @@
         .form-group input:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            outline: none;
         }
-
-        .form-group .error-msg {
-            display: none;
-            color: var(--error);
-            font-size: 0.8rem;
-            margin-top: 6px;
-        }
-
-        .form-group.invalid input { border-color: var(--error); }
-        .form-group.invalid .error-msg { display: block; }
 
         .btn-submit {
             width: 100%;
@@ -184,6 +175,18 @@
             color: var(--gold-light);
         }
 
+        .error-box {
+            display: none;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            border-radius: var(--radius);
+            padding: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            color: var(--error);
+        }
+
         footer {
             background: #040812;
             padding: 24px 0;
@@ -216,18 +219,17 @@
             <p class="subtitle">Entre para acompanhar suas cotas</p>
 
             <div class="success-box" id="successBox">Login realizado com sucesso! Redirecionando...</div>
+            <div class="error-box" id="errorBox"></div>
 
             <form id="loginForm" novalidate>
                 <div class="form-group" id="group-identifier">
                     <label for="identifier">E-mail ou CPF</label>
-                    <input type="text" id="identifier" name="identifier" placeholder="seuemail@exemplo.com">
-                    <span class="error-msg">Informe um e-mail ou CPF válido.</span>
+                    <input type="text" id="identifier" name="identifier" placeholder="Seu e-mail ou CPF" required>
                 </div>
 
                 <div class="form-group" id="group-password">
                     <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" placeholder="Sua senha">
-                    <span class="error-msg">A senha é obrigatória.</span>
+                    <input type="password" id="password" name="password" placeholder="Sua senha" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Entrar</button>
@@ -243,80 +245,101 @@
         </div>
     </footer>
 
-    <script>
-        const form = document.getElementById('loginForm');
-        const successBox = document.getElementById('successBox');
+    <!-- Script com Firebase Authentication + Busca por CPF se necessário -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        function setInvalid(groupId, invalid) {
-            document.getElementById(groupId).classList.toggle('invalid', invalid);
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsn6JE6w1T3IsatQcg3HlktHjimANRj98",
+            authDomain: "kopremia-128fe.firebaseapp.com",
+            projectId: "kopremia-128fe",
+            storageBucket: "kopremia-128fe.firebasestorage.app",
+            messagingSenderId: "575510944994",
+            appId: "1:575510944994:web:e2be838ad3841b6515d2bb",
+            measurementId: "G-DRLLR55757"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        function mostrarErro(msg) {
+            const errorBox = document.getElementById('errorBox');
+            const successBox = document.getElementById('successBox');
+            if (successBox) successBox.style.display = 'none';
+            if (errorBox) {
+                errorBox.innerText = msg;
+                errorBox.style.display = 'block';
+            }
         }
 
-        function isValidCPF(value) {
-            return /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/.test(value.trim());
+        function mostrarSucesso(msg) {
+            const errorBox = document.getElementById('errorBox');
+            const successBox = document.getElementById('successBox');
+            if (errorBox) errorBox.style.display = 'none';
+            if (successBox) {
+                successBox.innerText = msg;
+                successBox.style.display = 'block';
+            }
         }
 
-        function isValidEmail(value) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-        }
-
-        form.addEventListener('submit', function (e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            const btn = this.querySelector('.btn-submit');
             const identifier = document.getElementById('identifier').value.trim();
             const password = document.getElementById('password').value;
 
-            let valid = true;
-
-            if (!identifier || (!isValidEmail(identifier) && !isValidCPF(identifier))) {
-                setInvalid('group-identifier', true);
-                valid = false;
-            } else {
-                setInvalid('group-identifier', false);
+            if (!identifier || !password) {
+                mostrarErro("Preencha todos os campos.");
+                return;
             }
 
-            if (!password) {
-                setInvalid('group-password', true);
-                valid = false;
-            } else {
-                setInvalid('group-password', false);
+            btn.innerText = "ENTRANDO...";
+            btn.disabled = true;
+
+            let emailParaLogin = identifier;
+
+            try {
+                // Se o usuário digitou um CPF em vez de e-mail (não tem '@')
+                if (!identifier.includes('@')) {
+                    const q = query(collection(db, "usuarios"), where("cpf", "==", identifier));
+                    const querySnapshot = await getDocs(q);
+
+                    if (!querySnapshot.empty) {
+                        emailParaLogin = querySnapshot.docs[0].data().email;
+                    } else {
+                        mostrarErro("Nenhuma conta encontrada com este CPF.");
+                        btn.innerText = "ENTRAR";
+                        btn.disabled = false;
+                        return;
+                    }
+                }
+
+                // Autenticação oficial no Firebase Auth
+                await signInWithEmailAndPassword(auth, emailParaLogin, password);
+
+                mostrarSucesso("Login realizado com sucesso! Redirecionando...");
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1200);
+
+            } catch (error) {
+                console.error("Erro de login:", error);
+
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    mostrarErro("E-mail/CPF ou senha incorretos.");
+                } else {
+                    mostrarErro("Erro ao realizar login. Tente novamente.");
+                }
+
+                btn.innerText = "ENTRAR";
+                btn.disabled = false;
             }
-
-            if (!valid) return;
-
-            // Sem backend conectado ainda: aqui entraria a chamada à API de autenticação.
-            successBox.style.display = 'block';
-            form.querySelector('.btn-submit').innerText = 'Entrando...';
         });
     </script>
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyAsn6JE6w1T3IsatQcg3HlktHjimANRj98",
-        authDomain: "kopremia-128fe.firebaseapp.com",
-        projectId: "kopremia-128fe",
-        storageBucket: "kopremia-128fe.firebasestorage.app",
-        messagingSenderId: "575510944994",
-        appId: "1:575510944994:web:e2be838ad3841b6515d2bb",
-        measurementId: "G-DRLLR55757"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    window.fazerLogin = function(e) {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
-
-        signInWithEmailAndPassword(auth, email, senha)
-        .then(() => {
-            window.location.href = 'index.html';
-        })
-        .catch((error) => {
-            alert('E-mail ou senha incorretos: ' + error.message);
-        });
-    }
-</script>
 </body>
 </html>
