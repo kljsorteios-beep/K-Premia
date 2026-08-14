@@ -257,36 +257,37 @@
                     <span class="error-msg">A senha deve ter ao menos 6 caracteres.</span>
                 </div>
                 <!-- Novos campos de cadastro -->
-<div class="input-group">
-    <label>Data de Nascimento *</label>
-    <input type="date" id="dataNascimento" required>
-</div>
+    <!-- Novos campos com a estrutura do template -->
+    <div class="input-box">
+        <label>Data de Nascimento *</label>
+        <input type="date" id="dataNascimento" class="input-dark" required>
+    </div>
+    
+    <div class="input-box">
+        <label>CEP *</label>
+        <input type="text" id="cep" class="input-dark" placeholder="Apenas números" required maxlength="8" onblur="buscarCEP(this.value)">
+    </div>
 
-<div class="input-group">
-    <label>CEP *</label>
-    <input type="text" id="cep" placeholder="Apenas números" required maxlength="8" onblur="buscarCEP(this.value)">
-</div>
+    <div class="input-box">
+        <label>Logradouro *</label>
+        <input type="text" id="logradouro" class="input-dark" placeholder="Rua, Avenida, etc." required>
+    </div>
 
-<div class="input-group">
-    <label>Logradouro *</label>
-    <input type="text" id="logradouro" required>
-</div>
-
-<div class="input-group">
-    <label>Bairro *</label>
-    <input type="text" id="bairro" required>
-</div>
-
-<div class="input-group">
-    <label>Cidade *</label>
-    <input type="text" id="cidade" required readonly>
-</div>
-
-<div class="input-group">
-    <label>UF *</label>
-    <input type="text" id="uf" required readonly>
-</div>
-
+    <div class="input-box">
+        <label>Bairro *</label>
+        <input type="text" id="bairro" class="input-dark" placeholder="Seu bairro" required>
+    </div>
+    <!-- Cidade e UF lado a lado -->
+    <div class="row-inputs">
+        <div class="input-box width-70">
+            <label>Cidade *</label>
+            <input type="text" id="cidade" class="input-dark" required readonly>
+        </div>
+        <div class="input-box width-30">
+            <label>UF *</label>
+            <input type="text" id="uf" class="input-dark" required readonly>
+        </div>
+    </div>
                 <button type="submit" class="btn-submit">Criar Conta</button>
             </form>
 
