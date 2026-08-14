@@ -256,6 +256,36 @@
                     <input type="password" id="senha" name="senha" placeholder="Crie uma senha">
                     <span class="error-msg">A senha deve ter ao menos 6 caracteres.</span>
                 </div>
+                <!-- Novos campos de cadastro -->
+<div class="input-group">
+    <label>Data de Nascimento *</label>
+    <input type="date" id="dataNascimento" required>
+</div>
+
+<div class="input-group">
+    <label>CEP *</label>
+    <input type="text" id="cep" placeholder="Apenas números" required maxlength="8" onblur="buscarCEP(this.value)">
+</div>
+
+<div class="input-group">
+    <label>Logradouro *</label>
+    <input type="text" id="logradouro" required>
+</div>
+
+<div class="input-group">
+    <label>Bairro *</label>
+    <input type="text" id="bairro" required>
+</div>
+
+<div class="input-group">
+    <label>Cidade *</label>
+    <input type="text" id="cidade" required readonly>
+</div>
+
+<div class="input-group">
+    <label>UF *</label>
+    <input type="text" id="uf" required readonly>
+</div>
 
                 <button type="submit" class="btn-submit">Criar Conta</button>
             </form>
