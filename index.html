@@ -851,10 +851,30 @@
         if (fillElem) fillElem.style.width = porcentagem.toFixed(0) + '%';
         if (textElem) textElem.innerText = porcentagem.toFixed(0) + '% Vendido';
     }
-
     // Inicializa com 0 cotas vendidas
     document.addEventListener("DOMContentLoaded", function() {
         atualizarCotometro(0, 1000); 
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+const auth = getAuth(app);
+const db = getFirestore(app);
+    // Monitora se o usuário está logado
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            // O usuário está logado! Vamos buscar os dados dele no Firestore pelo UID
+            const docRef = doc(db, "usuarios", user.uid);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const dadosUsuario = docSnap.data();
+                console.log("Usuário logado:", dadosUsuario.nome);
+            
+            // Aqui você pode alterar o HTML do topo para mostrar o nome dele 
+            // Exemplo: document.getElementById('area-usuario').innerText = dadosUsuario.nome;
+        }
+    } else {
+        // Nenhum usuário logado
+        console.log("Nenhum usuário na sessão.");
+        }
     });
 </script>
 </body>
