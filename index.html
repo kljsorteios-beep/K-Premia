@@ -857,5 +857,48 @@
         atualizarCotometro(0, 1000); 
     });
 </script>
+    <!-- Script de Verificação de Sessão do Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98",
+        authDomain: "kopremia-128fe.firebaseapp.com",
+        projectId: "kopremia-128fe",
+        storageBucket: "kopremia-128fe.firebasestorage.app",
+        messagingSenderId: "575510944994",
+        appId: "1:575510944994:web:e2be838ad3841b6515d2bb",
+        measurementId: "G-DRLLR55757"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const navActions = document.querySelector('.nav-actions');
+
+        // Monitora o estado de autenticação do usuário em tempo real
+        onAuthStateChanged(auth, (user) => {
+            if (user && navActions) {
+                // Se o usuário estiver logado, altera os botões da navbar
+                navActions.innerHTML = `
+                    <a href="perfil.html" class="btn-login" style="color: var(--primary); margin-right: 10px; font-weight: 600;">Minha Conta</a>
+                    <button id="btnLogout" class="btn-primary" style="background: #ef4444; color: #fff; padding: 10px 16px; border-radius: var(--radius); font-weight: 600; cursor: pointer;">Sair</button>
+                `;
+
+                // Adiciona a lógica para o botão de sair (Logout)
+                document.getElementById('btnLogout').addEventListener('click', async () => {
+                    try {
+                        await signOut(auth);
+                        window.location.reload(); // Recarrega a página após sair
+                    } catch (error) {
+                        console.error("Erro ao sair:", error);
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>
