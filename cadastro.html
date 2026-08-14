@@ -137,6 +137,7 @@
         .form-group input:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            outline: none;
         }
 
         .form-group .error-msg {
@@ -203,6 +204,12 @@
             .auth-card h1 { font-size: 1.5rem; }
             .form-row { grid-template-columns: 1fr; gap: 0; }
         }
+
+        /* Ajuste do ícone do calendário para aparecer no tema escuro */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -256,38 +263,40 @@
                     <input type="password" id="senha" name="senha" placeholder="Crie uma senha">
                     <span class="error-msg">A senha deve ter ao menos 6 caracteres.</span>
                 </div>
-                <!-- Novos campos de cadastro -->
-    <!-- Novos campos com a estrutura do template -->
-    <div class="input-box">
-        <label>Data de Nascimento *</label>
-        <input type="date" id="dataNascimento" class="input-dark" required>
-    </div>
-    
-    <div class="input-box">
-        <label>CEP *</label>
-        <input type="text" id="cep" class="input-dark" placeholder="Apenas números" required maxlength="8" onblur="buscarCEP(this.value)">
-    </div>
+                
+                <!-- Novos campos de cadastro padronizados com o tema -->
+                <div class="form-group" id="group-dataNascimento">
+                    <label for="dataNascimento">Data de Nascimento *</label>
+                    <input type="date" id="dataNascimento" name="dataNascimento" required>
+                </div>
+                
+                <div class="form-group" id="group-cep">
+                    <label for="cep">CEP *</label>
+                    <input type="text" id="cep" name="cep" placeholder="Apenas números" required maxlength="8" onblur="buscarCEP(this.value)">
+                </div>
 
-    <div class="input-box">
-        <label>Logradouro *</label>
-        <input type="text" id="logradouro" class="input-dark" placeholder="Rua, Avenida, etc." required>
-    </div>
+                <div class="form-group" id="group-logradouro">
+                    <label for="logradouro">Logradouro *</label>
+                    <input type="text" id="logradouro" name="logradouro" placeholder="Rua, Avenida, etc." required>
+                </div>
 
-    <div class="input-box">
-        <label>Bairro *</label>
-        <input type="text" id="bairro" class="input-dark" placeholder="Seu bairro" required>
-    </div>
-    <!-- Cidade e UF lado a lado -->
-    <div class="row-inputs">
-        <div class="input-box width-70">
-            <label>Cidade *</label>
-            <input type="text" id="cidade" class="input-dark" required readonly>
-        </div>
-        <div class="input-box width-30">
-            <label>UF *</label>
-            <input type="text" id="uf" class="input-dark" required readonly>
-        </div>
-    </div>
+                <div class="form-group" id="group-bairro">
+                    <label for="bairro">Bairro *</label>
+                    <input type="text" id="bairro" name="bairro" placeholder="Seu bairro" required>
+                </div>
+                
+                <!-- Cidade e UF lado a lado -->
+                <div class="form-row" style="grid-template-columns: 2fr 1fr;">
+                    <div class="form-group" id="group-cidade">
+                        <label for="cidade">Cidade *</label>
+                        <input type="text" id="cidade" name="cidade" required readonly style="opacity: 0.7; cursor: not-allowed;">
+                    </div>
+                    <div class="form-group" id="group-uf">
+                        <label for="uf">UF *</label>
+                        <input type="text" id="uf" name="uf" required readonly style="opacity: 0.7; cursor: not-allowed;">
+                    </div>
+                </div>
+
                 <button type="submit" class="btn-submit">Criar Conta</button>
             </form>
 
