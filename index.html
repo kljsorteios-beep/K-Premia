@@ -124,6 +124,13 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
+        .nav-actions .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: wait;
+            transform: none;
+            box-shadow: none;
+        }
+
         .hero {
             margin-top: 70px;
             padding: 60px 0;
@@ -680,7 +687,7 @@
             <div class="logo">
                 Kóò<span class="text-gold">premios</span>
             </div>
-            <div class="nav-actions">
+            <div class="nav-actions" id="authNav" aria-live="polite">
                 <a href="login.html" class="btn-login">Entrar</a>
                 <a href="cadastro.html" class="btn-primary">Criar Conta</a>
             </div>
@@ -693,7 +700,7 @@
             <p class="subtitle">Sorteio autorizado pela Loteria Federal. Apenas <strong class="text-gold">R$ 0,50</strong> a cota!</p>
 
             <a href="#cotasSection" class="prize-image-container" aria-label="Ver fotos e comprar cotas">
-                <img src="IMG_1737.jpg" alt="Honda XRE 190 2026 em Destaque">
+                <img src="IMG_1737.webp" alt="Honda XRE 190 2026 em Destaque">
                 <button type="button" class="fullscreen-btn" onclick="openLightbox(event, 0)" aria-label="Ver em tela cheia">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
                 </button>
@@ -728,31 +735,31 @@
                     <h3>Fotos Detalhadas da Moto</h3>
                     <div class="gallery-grid">
                         <div class="gallery-item" onclick="openLightbox(event, 0)">
-                            <img src="IMG_1737.jpg" alt="Foto XRE 1">
+                            <img src="IMG_1737.webp" alt="Foto XRE 1">
                             <span class="expand-icon">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
                             </span>
                         </div>
                         <div class="gallery-item" onclick="openLightbox(event, 1)">
-                            <img src="IMG_1757.jpg" alt="Foto XRE 2">
+                            <img src="IMG_1757.webp" alt="Foto XRE 2">
                             <span class="expand-icon">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
                             </span>
                         </div>
                         <div class="gallery-item" onclick="openLightbox(event, 2)">
-                            <img src="IMG_1820.jpg" alt="Foto XRE 3">
+                            <img src="IMG_1820.webp" alt="Foto XRE 3">
                             <span class="expand-icon">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
                             </span>
                         </div>
                         <div class="gallery-item" onclick="openLightbox(event, 3)">
-                            <img src="IMG_1827.jpg" alt="Foto XRE 4">
+                            <img src="IMG_1827.webp" alt="Foto XRE 4">
                             <span class="expand-icon">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
                             </span>
                         </div>
                         <div class="gallery-item" onclick="openLightbox(event, 4)">
-                            <img src="IMG_1869.jpg" alt="Foto XRE 5">
+                            <img src="IMG_1869.webp" alt="Foto XRE 5">
                             <span class="expand-icon">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
                             </span>
@@ -874,11 +881,11 @@
     <!-- SCRIPT ORIGINAL DO LIGHTBOX -->
     <script>
         const lightboxPhotos = [
-            'IMG_1737.jpg',
-            'IMG_1757.jpg',
-            'IMG_1820.jpg',
-            'IMG_1827.jpg',
-            'IMG_1869.jpg'
+            'IMG_1737.webp',
+            'IMG_1757.webp',
+            'IMG_1820.webp',
+            'IMG_1827.webp',
+            'IMG_1869.webp'
         ];
         let currentLightboxIndex = 0;
         const lightboxEl = document.getElementById('lightbox');
@@ -921,6 +928,67 @@
             if (e.key === 'ArrowLeft') changeLightbox(-1);
             if (e.key === 'ArrowRight') changeLightbox(1);
         });
+    </script>
+
+    <!-- Autenticação e navegação da conta -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98",
+            authDomain: "kopremia-128fe.firebaseapp.com",
+            projectId: "kopremia-128fe",
+            storageBucket: "kopremia-128fe.firebasestorage.app",
+            messagingSenderId: "575510944994",
+            appId: "1:575510944994:web:e2be838ad3841b6515d2bb"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const authNav = document.getElementById('authNav');
+
+        function createNavLink(text, href, className) {
+            const link = document.createElement('a');
+            link.href = href;
+            link.className = className;
+            link.textContent = text;
+            return link;
+        }
+
+        function renderAuthNav(user) {
+            if (!authNav) return;
+            authNav.replaceChildren();
+
+            if (!user) {
+                authNav.append(
+                    createNavLink('Entrar', 'login.html', 'btn-login'),
+                    createNavLink('Criar Conta', 'cadastro.html', 'btn-primary')
+                );
+                return;
+            }
+
+            authNav.appendChild(createNavLink('Minha conta', 'perfil.html', 'btn-login'));
+
+            const logoutButton = document.createElement('button');
+            logoutButton.type = 'button';
+            logoutButton.className = 'btn-primary';
+            logoutButton.textContent = 'Sair';
+            logoutButton.addEventListener('click', async () => {
+                logoutButton.disabled = true;
+                logoutButton.textContent = 'Saindo...';
+                try {
+                    await signOut(auth);
+                } catch (error) {
+                    console.error('Erro ao sair:', error);
+                    logoutButton.disabled = false;
+                    logoutButton.textContent = 'Sair';
+                }
+            });
+            authNav.appendChild(logoutButton);
+        }
+
+        onAuthStateChanged(auth, renderAuthNav);
     </script>
 
     <!-- SCRIPT ORIGINAL DO COTÔMETRO -->
