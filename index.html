@@ -697,51 +697,53 @@
                 
                 <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 30px;">Escolha seu Pacote da Sorte</h2>
 
-                <div class="packages-grid">
-                    <div class="package-card" data-qty="10" data-price="5.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">10 Cotas</h3>
-                        <p>R$ 0,50 cada</p>
-                        <div class="price">R$ 5,00</div>
-                    </div>
+              <!-- INÍCIO DA SEÇÃO DE PACOTES DE COTAS (R$ 0,50) -->
+<div class="packages-grid">
+    <div class="package-card" data-qty="10" data-price="5.00" onclick="selectPackage(this)">
+        <h3 class="text-gold">10 Cotas</h3>
+        <p>R$ 0,50 cada</p>
+        <div class="price">R$ 5,00</div>
+    </div>
 
-                    <div class="package-card" data-qty="50" data-price="25.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">50 Cotas</h3>
-                        <p>R$ 0,50 cada</p>
-                        <div class="price">R$ 25,00</div>
-                    </div>
+    <div class="package-card" data-qty="50" data-price="25.00" onclick="selectPackage(this)">
+        <h3 class="text-gold">50 Cotas</h3>
+        <p>R$ 0,50 cada</p>
+        <div class="price">R$ 25,00</div>
+    </div>
 
-                    <div class="package-card selected" data-qty="100" data-price="50.00" onclick="selectPackage(this)">
-                        <div class="popular-badge">Mais Popular</div>
-                        <h3 class="text-gold">100 Cotas</h3>
-                        <p>R$ 0,50 cada</p>
-                        <div class="price">R$ 50,00</div>
-                    </div>
+    <div class="package-card selected" data-qty="100" data-price="50.00" onclick="selectPackage(this)">
+        <div class="popular-badge">Mais Popular</div>
+        <h3 class="text-gold">100 Cotas</h3>
+        <p>R$ 0,50 cada</p>
+        <div class="price">R$ 5,000</div>
+    </div>
 
-                    <div class="package-card" data-qty="200" data-price="100.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">200 Cotas</h3>
-                        <p>R$ 0,50 cada</p>
-                        <div class="price">R$ 100,00</div>
-                    </div>
+        <div class="package-card" data-qty="200" data-price="100.00" onclick="selectPackage(this)">
+            <h3 class="text-gold">200 Cotas</h3>
+            <p>R$ 0,50 cada</p>
+            <div class="price">R$ 100,00</div>
+        </div>
 
-                    <div class="package-card" data-qty="500" data-price="250.00" onclick="selectPackage(this)">
-                        <h3 class="text-gold">500 Cotas</h3>
-                        <p>Combo Master</p>
-                        <div class="price">R$ 250,00</div>
-                    </div>
-                </div>
+        <div class="package-card" data-qty="500" data-price="250.00" onclick="selectPackage(this)">
+            <h3 class="text-gold">500 Cotas</h3>
+            <p>Combo VIP</p>
+            <div class="price">R$ 250,00</div>
+        </div>
+    </div>
 
-                <div class="checkout-bar">
-                    <div class="checkout-info">
-                        <p>Você está adquirindo:</p>
-                        <h4><span class="text-gold" id="selected-qty">100</span> Cotas Selecionadas</h4>
-                    </div>
-                    <div class="checkout-action">
-                        <button class="btn-checkout">
-                            Pagar <span id="selected-price">R$ 50,00</span>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                        </button>
-                    </div>
-                </div>
+    <div class="checkout-bar">
+        <div class="checkout-info">
+            <p>Você está adquirindo:</p>
+            <h4><span class="text-gold" id="selected-qty">100</span> Cotas Selecionadas</h4>
+        </div>
+        <div class="checkout-action">
+            <button type="button" class="btn-checkout">
+                Pagar <span id="selected-price">R$ 50,00</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+<!-- FIM DA SEÇÃO DE PACOTES DE COTAS -->
             </div>
         </section>
     </main>
