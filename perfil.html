@@ -259,7 +259,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        onAuthStateChanged(auth, async (user) => {
+       onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById('userEmail').innerText = user.email;
 
@@ -268,10 +268,10 @@
                     let userDoc = await getDoc(userDocRef);
 
                     if (!userDoc.exists()) {
-                        const q = query(collection(db, "usuarios"), where("email", "==", user.email));
-                        const querySnapshot = await getDocs(q);
-                        if (!querySnapshot.empty) {
-                            userDoc = querySnapshot.docs[0];
+                        const qUser = query(collection(db, "usuarios"), where("email", "==", user.email));
+                        const querySnapshotUser = await getDocs(qUser);
+                        if (!querySnapshotUser.empty) {
+                            userDoc = querySnapshotUser.docs[0];
                         }
                     }
 
@@ -286,8 +286,37 @@
                         document.getElementById('userPhone').innerText = "Não cadastrado";
                     }
 
+                    // --- BUSCAR AS COTAS (TÍTULOS) DO USUÁRIO ---
+                    const listaCotasDiv = document.getElementById('listaCotas');
+                    const qCotas = query(collection(db, "compras"), where("uid", "==", user.uid));
+                    const querySnapshotCotas = await getDocs(qCotas);
+
+                    if (!querySnapshotCotas.empty) {
+                        listaCotasDiv.innerHTML = ""; // Limpa a mensagem padrão
+                        
+                        querySnapshotCotas.forEach((docCota) => {
+                            const compra = docCota.data();
+                            
+                            const card = document.createElement('div');
+                            card.style.cssText = "background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(212,175,55,0.2);";
+                            
+                            card.innerHTML = `
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        <h3 style="color:var(--primary); font-size: 1rem;">${compra.nomeRifa || "Sorteio"}</h3>
+                                        <p style="font-size: 0.85rem; color: #ccc; margin-top: 4px;">Números: <strong>${compra.numeros ? compra.numeros.join(', ') : 'Nenhum'}</strong></p>
+                                    </div>
+                                    <span style="background: ${compra.status === 'pago' ? '#22c55e' : '#f59e0b'}; color: #081021; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">
+                                        ${compra.status ? compra.status.toUpperCase() : 'PENDENTE'}
+                                    </span>
+                                </div>
+                            `;
+                            listaCotasDiv.appendChild(card);
+                        });
+                    }
+
                 } catch (error) {
-                    console.error("Erro ao buscar dados do perfil:", error);
+                    console.error("Erro ao buscar dados do perfil ou cotas:", error);
                 }
 
             } else {
