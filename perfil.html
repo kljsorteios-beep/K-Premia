@@ -2,53 +2,276 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Conta | Kóòpremios</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #d4af37; --bg: #081021; --card: #111b33; --text: #e1e1e6; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; }
-        .profile-card, .orders-card { background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        h2 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        .info-row { margin: 10px 0; }
-        .btn-logout { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
-        .cota-badge { display: inline-block; background: var(--primary); color: var(--bg); padding: 5px 10px; border-radius: 4px; font-weight: bold; margin-right: 5px; }
+        :root {
+            --gold-dark: #8a631c;
+            --gold-mid: #d4af37;
+            --gold-light: #fced9e;
+            --gold-gradient: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-mid) 25%, var(--gold-light) 50%, var(--gold-mid) 75%, var(--gold-dark) 100%);
+            --primary: #d4af37;
+            --bg-color: #081021;
+            --surface-color: #0f172a;
+            --surface-hover: #1e293b;
+            --text-color: #e1e1e6;
+            --text-muted: #a8a8b3;
+            --radius: 8px;
+            --transition: all 0.3s ease;
+            --error: #ff6b6b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; border: none; outline: none; }
+
+        .text-gold {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        header.navbar {
+            background-color: rgba(8, 16, 33, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--surface-color);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover { color: var(--primary); }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .profile-card, .orders-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-item span {
+            font-size: 1rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .btn-logout:hover {
+            background: var(--error);
+            color: #fff;
+        }
+
+        .empty-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: #040812;
+            padding: 24px 0;
+            text-align: center;
+            border-top: 1px solid var(--surface-color);
+        }
+        footer p { color: var(--text-muted); font-size: 13px; }
     </style>
 </head>
 <body>
-    <div class="container">
+
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Kóò<span class="text-gold">premios</span></a>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Voltar ao site
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Card de Informações do Perfil -->
         <div class="profile-card">
             <h2>Dados do Perfil</h2>
-            <div class="info-row"><strong>E-mail:</strong> <span id="userEmail">Carregando...</span></div>
-            <button class="btn-logout" onclick="logout()">Sair</button>
+            <div class="info-grid" id="profileInfo">
+                <div class="info-item">
+                    <label>Nome Completo</label>
+                    <span id="userName">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <label>E-mail</label>
+                    <span id="userEmail">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <label>CPF</label>
+                    <span id="userCpf">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <label>Telefone / WhatsApp</label>
+                    <span id="userPhone">Carregando...</span>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="fazerLogout()">Sair da Conta</button>
         </div>
 
+        <!-- Card de Títulos / Cotas -->
         <div class="orders-card">
             <h2>Meus Títulos (Cotas)</h2>
             <div id="listaCotas">
-                <p>Você ainda não possui cotas compradas.</p>
-                <!-- Aqui entra a listagem via JavaScript no futuro -->
+                <p class="empty-text">Você ainda não possui cotas compradas.</p>
             </div>
         </div>
-    </div>
+    </main>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Kóòpremios. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script do Firebase para puxar os dados -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        const firebaseConfig = { /* Cole sua configuração aqui novamente */ };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98",
+            authDomain: "kopremia-128fe.firebaseapp.com",
+            projectId: "kopremia-128fe",
+            storageBucket: "kopremia-128fe.firebasestorage.app",
+            messagingSenderId: "575510944994",
+            appId: "1:575510944994:web:e2be838ad3841b6515d2bb",
+            measurementId: "G-DRLLR55757"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
+                // Preenche o e-mail que vem direto da autenticação
                 document.getElementById('userEmail').innerText = user.email;
+
+                try {
+                    // Tenta buscar os dados adicionais do usuário no Firestore 
+                    // (Procurando pelo documento com o UID do usuário ou buscando na coleção 'usuarios')
+                    const userDocRef = doc(db, "usuarios", user.uid);
+                    let userDoc = await getDoc(userDocRef);
+
+                    if (!userDoc.exists()) {
+                        // Se não achar pelo UID direto, tenta buscar onde o campo 'email' é igual ao do usuário logado
+                        const q = query(collection(db, "usuarios"), where("email", "==", user.email));
+                        const querySnapshot = await getDocs(q);
+                        if (!querySnapshot.empty) {
+                            userDoc = querySnapshot.docs[0];
+                        }
+                    }
+
+                    if (userDoc && userDoc.exists()) {
+                        const dados = userDoc.data();
+                        document.getElementById('userName').innerText = dados.nome || dados.name || "Não informado";
+                        document.getElementById('userCpf').innerText = dados.cpf || "Não informado";
+                        document.getElementById('userPhone').innerText = dados.telefone || dados.phone || "Não informado";
+                    } else {
+                        document.getElementById('userName').innerText = "Não cadastrado";
+                        document.getElementById('userCpf').innerText = "Não cadastrado";
+                        document.getElementById('userPhone').innerText = "Não cadastrado";
+                    }
+
+                } catch (error) {
+                    console.error("Erro ao buscar dados do perfil:", error);
+                }
+
             } else {
+                // Se não estiver logado, manda pra tela de login
                 window.location.href = "login.html";
             }
         });
 
-        window.logout = () => signOut(auth).then(() => window.location.href = "index.html");
+        window.fazerLogout = async () => {
+            try {
+                await signOut(auth);
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error("Erro ao sair:", error);
+            }
+        };
     </script>
 </body>
 </html>
