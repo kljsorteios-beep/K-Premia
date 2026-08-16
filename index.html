@@ -369,12 +369,12 @@
         }
 
         .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Se tiver muitos cards, 220px pode esticar a tela em telas pequenas */
+        gap: 25px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
 
         .package-card {
             background: var(--bg-color);
