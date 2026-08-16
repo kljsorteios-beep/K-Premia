@@ -43,7 +43,7 @@
             scroll-behavior: smooth;
         }
 
-        a { text-decoration: none; color: inherit; display: inline-block; }
+        a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         button { cursor: pointer; border: none; outline: none; }
 
@@ -100,7 +100,6 @@
             font-size: 15px;
             border-radius: var(--radius);
             transition: var(--transition);
-            cursor: pointer;
         }
 
         .nav-actions .btn-login:hover {
@@ -369,93 +368,69 @@
             opacity: 1;
         }
 
-        /* ESTILO DS PREMIOS - CARDS COMPACTOS COM GRID RESPONSIVA */
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
             max-width: 1100px;
             margin: 0 auto;
         }
 
         .package-card {
             background: var(--bg-color);
-            border: 2px solid rgba(212, 175, 55, 0.2); 
-            padding: 25px 15px;
+            border: 2px solid rgba(212, 175, 55, 0.15); 
+            padding: 35px 20px;
             border-radius: 12px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
-        .package-card:hover {
+        .package-card:hover, .package-card.selected {
             border-color: var(--primary);
-            transform: translateY(-4px);
-        }
-
-        .package-card.selected {
-            border-color: var(--gold-mid);
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, var(--bg-color) 100%);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
-            transform: translateY(-4px);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); 
+            transform: translateY(-8px);
         }
 
         .popular-badge {
             position: absolute;
-            top: -12px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--gold-gradient);
             color: #000;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 900;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
             letter-spacing: 0.5px;
-            white-space: nowrap;
         }
 
         .package-card h3 {
-            font-size: 1.5rem;
-            margin-top: 5px;
-            margin-bottom: 2px;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
             font-weight: 900;
         }
 
         .package-card p {
             color: var(--text-muted);
-            margin-bottom: 12px;
-            font-size: 0.85rem;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
         }
 
         .package-card .price {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            width: 100%;
-            padding: 8px 0;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .package-card.selected .price {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: rgba(212, 175, 55, 0.4);
-            color: var(--gold-light);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-color);
         }
 
         .checkout-bar {
             max-width: 1100px;
-            margin: 40px auto 0;
-            background: rgba(8, 16, 33, 0.85);
-            padding: 20px 30px;
+            margin: 50px auto 0;
+            background: rgba(8, 16, 33, 0.8);
+            padding: 25px 35px;
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
@@ -465,23 +440,23 @@
             backdrop-filter: blur(10px);
         }
 
-        .checkout-info p { font-size: 14px; color: var(--text-muted); margin-bottom: 2px;}
-        .checkout-info h4 { font-size: 1.6rem; font-weight: 700; }
+        .checkout-info p { font-size: 15px; color: var(--text-muted); margin-bottom: 5px;}
+        .checkout-info h4 { font-size: 1.8rem; font-weight: 700; }
 
         .btn-checkout {
             background: var(--gold-gradient);
             color: #000;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 900;
-            padding: 16px 36px;
+            padding: 18px 45px;
             border-radius: var(--radius);
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background-size: 200% auto;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .btn-checkout:hover {
@@ -606,7 +581,6 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
-            .packages-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .checkout-bar { flex-direction: column; gap: 20px; text-align: center; }
             .btn-checkout { width: 100%; justify-content: center; }
             .lightbox-nav { width: 40px; height: 40px; }
@@ -628,7 +602,7 @@
             .badge-premium { font-size: 11px; padding: 5px 12px; top: 12px; right: 12px; }
             .fullscreen-btn { width: 36px; height: 36px; top: 12px; left: 12px; }
             .section-title { font-size: 1.6rem; }
-            .package-card { padding: 18px 10px; }
+            .package-card { padding: 25px 15px; }
             .checkout-bar { padding: 20px; }
             .btn-checkout { padding: 16px 30px; font-size: 1rem; }
         }
@@ -683,6 +657,8 @@
 
         <section class="buy-section" id="cotasSection">
             <div class="container">
+                <h2 class="section-title">Garanta suas Cotas</h2>
+
                 <div class="gallery-container">
                     <h3>Fotos Detalhadas da Moto</h3>
                     <div class="gallery-grid">
@@ -861,21 +837,68 @@
             if (e.key === 'ArrowLeft') changeLightbox(-1);
             if (e.key === 'ArrowRight') changeLightbox(1);
         });
-
-        function atualizarCotometro(cotasVendidas, totalCotas = 1000) {
-            let porcentagem = (cotasVendidas / totalCotas) * 100;
-            if (porcentagem > 100) porcentagem = 100;
-
-            const fillElem = document.querySelector('.progress-fill');
-            const textElem = document.getElementById('progress-text');
-
-            if (fillElem) fillElem.style.width = porcentagem.toFixed(0) + '%';
-            if (textElem) textElem.innerText = porcentagem.toFixed(0) + '% Vendido';
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            atualizarCotometro(0, 1000); 
-        });
     </script>
+    <script>
+    // Função para atualizar a barra e o texto do cotômetro
+    function atualizarCotometro(cotasVendidas, totalCotas = 1000) {
+        // Calcula a porcentagem real (ex: 0 de 1000 cotas = 0%)
+        let porcentagem = (cotasVendidas / totalCotas) * 100;
+        if (porcentagem > 100) porcentagem = 100;
+
+        const fillElem = document.querySelector('.progress-fill');
+        const textElem = document.getElementById('progress-text');
+
+        if (fillElem) fillElem.style.width = porcentagem.toFixed(0) + '%';
+        if (textElem) textElem.innerText = porcentagem.toFixed(0) + '% Vendido';
+    }
+
+    // Inicializa com 0 cotas vendidas
+    document.addEventListener("DOMContentLoaded", function() {
+        atualizarCotometro(0, 1000); 
+    });
+</script>
+    <!-- Script de Verificação de Sessão do Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98",
+        authDomain: "kopremia-128fe.firebaseapp.com",
+        projectId: "kopremia-128fe",
+        storageBucket: "kopremia-128fe.firebasestorage.app",
+        messagingSenderId: "575510944994",
+        appId: "1:575510944994:web:e2be838ad3841b6515d2bb",
+        measurementId: "G-DRLLR55757"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const navActions = document.querySelector('.nav-actions');
+
+        // Monitora o estado de autenticação do usuário em tempo real
+        onAuthStateChanged(auth, (user) => {
+            if (user && navActions) {
+                // Se o usuário estiver logado, altera os botões da navbar
+                navActions.innerHTML = `
+                    <a href="perfil.html" class="btn-login" style="color: var(--primary); margin-right: 10px; font-weight: 600;">Minha Conta</a>
+                    <button id="btnLogout" class="btn-primary" style="background: #ef4444; color: #fff; padding: 10px 16px; border-radius: var(--radius); font-weight: 600; cursor: pointer;">Sair</button>
+                `;
+
+                // Adiciona a lógica para o botão de sair (Logout)
+                document.getElementById('btnLogout').addEventListener('click', async () => {
+                    try {
+                        await signOut(auth);
+                        window.location.reload(); // Recarrega a página após sair
+                    } catch (error) {
+                        console.error("Erro ao sair:", error);
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>
