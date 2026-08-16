@@ -368,101 +368,169 @@
             opacity: 1;
         }
 
-        .packages-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Se tiver muitos cards, 220px pode esticar a tela em telas pequenas */
-        gap: 25px;
-        max-width: 1100px;
-        margin: 0 auto;
-    }
+        /* ==============================
+            ESTILO DAS COTAS (DESIGN SOLICITADO)
+            ============================== */
+        .cotas-wrapper {
+            max-width: 550px;
+            margin: 0 auto;
+        }
 
-        .package-card {
-            background: var(--bg-color);
-            border: 2px solid rgba(212, 175, 55, 0.15); 
-            padding: 35px 20px;
-            border-radius: 12px;
+        .cotas-subtitle {
             text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .cotas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .cota-card {
+            background: #040812;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: var(--transition);
-            position: relative;
+            user-select: none;
         }
 
-        .package-card:hover, .package-card.selected {
+        .cota-card:hover, .cota-card.selected {
             border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); 
-            transform: translateY(-8px);
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
         }
 
-        .popular-badge {
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gold-gradient);
-            color: #000;
-            font-size: 13px;
+        .cota-qty {
+            font-size: 1.6rem;
             font-weight: 900;
-            padding: 6px 16px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+            line-height: 1.1;
+        }
+
+        .cota-price {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 4px 0 6px;
+        }
+
+        .cota-action {
+            color: var(--text-color);
+            font-size: 0.75rem;
+            font-weight: 700;
             letter-spacing: 0.5px;
         }
 
-        .package-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            font-weight: 900;
-        }
-
-        .package-card p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .package-card .price {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        .checkout-bar {
-            max-width: 1100px;
-            margin: 50px auto 0;
-            background: rgba(8, 16, 33, 0.8);
-            padding: 25px 35px;
-            border-radius: 12px;
+        .cotas-checkout-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
-            backdrop-filter: blur(10px);
-        }
-
-        .checkout-info p { font-size: 15px; color: var(--text-muted); margin-bottom: 5px;}
-        .checkout-info h4 { font-size: 1.8rem; font-weight: 700; }
-
-        .btn-checkout {
-            background: var(--gold-gradient);
-            color: #000;
-            font-size: 1.2rem;
-            font-weight: 900;
-            padding: 18px 45px;
-            border-radius: var(--radius);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
             gap: 12px;
-            background-size: 200% auto;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            align-items: center;
         }
 
-        .btn-checkout:hover {
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            background: #040812;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 4px;
+            flex: 1;
+            height: 52px;
+        }
+
+        .qty-btn {
+            background: transparent;
+            border: none;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            width: 40px;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .qty-btn:hover {
+            color: var(--primary);
+        }
+
+        .qty-selector input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 700;
+            width: 100%;
+            outline: none;
+        }
+
+        .qty-selector input::-webkit-outer-spin-button,
+        .qty-selector input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .btn-participar {
+            background: var(--gold-gradient);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            flex: 1.3;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-size: 200% auto;
+        }
+
+        .btn-participar:hover {
             background-position: right center;
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-check {
+            background: rgba(0, 0, 0, 0.15);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 900;
+        }
+
+        .btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.1;
+        }
+
+        .btn-text span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-text strong {
+            font-size: 1.05rem;
+            font-weight: 900;
         }
 
         footer {
@@ -581,8 +649,6 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
-            .checkout-bar { flex-direction: column; gap: 20px; text-align: center; }
-            .btn-checkout { width: 100%; justify-content: center; }
             .lightbox-nav { width: 40px; height: 40px; }
             .lightbox-prev { left: 4px; }
             .lightbox-next { right: 4px; }
@@ -602,9 +668,8 @@
             .badge-premium { font-size: 11px; padding: 5px 12px; top: 12px; right: 12px; }
             .fullscreen-btn { width: 36px; height: 36px; top: 12px; left: 12px; }
             .section-title { font-size: 1.6rem; }
-            .package-card { padding: 25px 15px; }
-            .checkout-bar { padding: 20px; }
-            .btn-checkout { padding: 16px 30px; font-size: 1rem; }
+            .cotas-checkout-row { flex-direction: column; }
+            .qty-selector, .btn-participar { width: 100%; flex: none; }
         }
     </style>
 </head>
@@ -694,56 +759,54 @@
                         </div>
                     </div>
                 </div>
-                
-                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 30px;">Escolha seu Pacote da Sorte</h2>
 
-              <!-- INÍCIO DA SEÇÃO DE PACOTES DE COTAS (R$ 0,50) -->
-<div class="packages-grid">
-    <div class="package-card" data-qty="10" data-price="5.00" onclick="selectPackage(this)">
-        <h3 class="text-gold">10 Cotas</h3>
-        <p>R$ 0,50 cada</p>
-        <div class="price">R$ 5,00</div>
-    </div>
+                <!-- SEÇÃO DE COTAS COM O LAYOUT DA SUA FOTO E AS CORES DO SEU SITE -->
+                <div class="cotas-wrapper">
+                    <p class="cotas-subtitle">Quanto mais títulos, mais chances de ganhar!</p>
 
-    <div class="package-card" data-qty="50" data-price="25.00" onclick="selectPackage(this)">
-        <h3 class="text-gold">50 Cotas</h3>
-        <p>R$ 0,50 cada</p>
-        <div class="price">R$ 25,00</div>
-    </div>
+                    <div class="cotas-grid">
+                        <div class="cota-card" onclick="selectCota(50, 25.00, this)">
+                            <span class="cota-qty text-gold">+50</span>
+                            <span class="cota-price">R$ 25,00</span>
+                            <span class="cota-action">SELECIONAR</span>
+                        </div>
 
-    <div class="package-card selected" data-qty="100" data-price="50.00" onclick="selectPackage(this)">
-        <div class="popular-badge">Mais Popular</div>
-        <h3 class="text-gold">100 Cotas</h3>
-        <p>R$ 0,50 cada</p>
-        <div class="price">R$ 5,000</div>
-    </div>
+                        <div class="cota-card" onclick="selectCota(100, 50.00, this)">
+                            <span class="cota-qty text-gold">+100</span>
+                            <span class="cota-price">R$ 50,00</span>
+                            <span class="cota-action">SELECIONAR</span>
+                        </div>
 
-        <div class="package-card" data-qty="200" data-price="100.00" onclick="selectPackage(this)">
-            <h3 class="text-gold">200 Cotas</h3>
-            <p>R$ 0,50 cada</p>
-            <div class="price">R$ 100,00</div>
-        </div>
+                        <div class="cota-card" onclick="selectCota(500, 250.00, this)">
+                            <span class="cota-qty text-gold">+500</span>
+                            <span class="cota-price">R$ 250,00</span>
+                            <span class="cota-action">SELECIONAR</span>
+                        </div>
 
-        <div class="package-card" data-qty="500" data-price="250.00" onclick="selectPackage(this)">
-            <h3 class="text-gold">500 Cotas</h3>
-            <p>Combo VIP</p>
-            <div class="price">R$ 250,00</div>
-        </div>
-    </div>
+                        <div class="cota-card" onclick="selectCota(1000, 500.00, this)">
+                            <span class="cota-qty text-gold">+1000</span>
+                            <span class="cota-price">R$ 500,00</span>
+                            <span class="cota-action">SELECIONAR</span>
+                        </div>
+                    </div>
 
-    <div class="checkout-bar">
-        <div class="checkout-info">
-            <p>Você está adquirindo:</p>
-            <h4><span class="text-gold" id="selected-qty">100</span> Cotas Selecionadas</h4>
-        </div>
-        <div class="checkout-action">
-            <button type="button" class="btn-checkout">
-                Pagar <span id="selected-price">R$ 50,00</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </button>
-        </div>
-    </div>
-<!-- FIM DA SEÇÃO DE PACOTES DE COTAS -->
+                    <div class="cotas-checkout-row">
+                        <div class="qty-selector">
+                            <button type="button" class="qty-btn" onclick="changeQty(-10)">−</button>
+                            <input type="number" id="input-qty" value="100" min="1" oninput="updatePriceFromInput()">
+                            <button type="button" class="qty-btn" onclick="changeQty(10)">+</button>
+                        </div>
+
+                        <button type="button" class="btn-participar">
+                            <span class="btn-check">✓</span>
+                            <div class="btn-text">
+                                <span>Quero participar</span>
+                                <strong id="display-price">R$ 50,00</strong>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </section>
     </main>
@@ -775,22 +838,41 @@
         </div>
     </div>
 
+    <!-- LÓGICA DAS COTAS -->
     <script>
-        function selectPackage(element) {
-            document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
-            element.classList.add('selected');
+        const PRICE_PER_COTA = 0.50;
 
-            const qty = element.getAttribute('data-qty');
-            const price = parseFloat(element.getAttribute('data-price')).toFixed(2);
-            
-            document.getElementById('selected-qty').innerText = qty;
-            document.getElementById('selected-price').innerText = `R$ ${price.replace('.', ',')}`;
-            
-            const checkoutBar = document.querySelector('.checkout-bar');
-            checkoutBar.style.transform = 'scale(0.98)';
-            setTimeout(() => checkoutBar.style.transform = 'scale(1)', 150);
+        function selectCota(qty, price, element) {
+            document.querySelectorAll('.cota-card').forEach(card => card.classList.remove('selected'));
+            if (element) element.classList.add('selected');
+
+            document.getElementById('input-qty').value = qty;
+            updateDisplayPrice(price);
         }
 
+        function changeQty(delta) {
+            const input = document.getElementById('input-qty');
+            let current = parseInt(input.value) || 0;
+            current = Math.max(1, current + delta);
+            input.value = current;
+            updatePriceFromInput();
+        }
+
+        function updatePriceFromInput() {
+            const input = document.getElementById('input-qty');
+            let qty = parseInt(input.value) || 1;
+            if (qty < 1) qty = 1;
+            const total = qty * PRICE_PER_COTA;
+            updateDisplayPrice(total);
+        }
+
+        function updateDisplayPrice(price) {
+            document.getElementById('display-price').innerText = `R$ ${price.toFixed(2).replace('.', ',')}`;
+        }
+    </script>
+
+    <!-- SCRIPT ORIGINAL DO LIGHTBOX -->
+    <script>
         const lightboxPhotos = [
             'IMG_1737.jpg',
             'IMG_1757.jpg',
@@ -840,67 +922,23 @@
             if (e.key === 'ArrowRight') changeLightbox(1);
         });
     </script>
+
+    <!-- SCRIPT ORIGINAL DO COTÔMETRO -->
     <script>
-    // Função para atualizar a barra e o texto do cotômetro
-    function atualizarCotometro(cotasVendidas, totalCotas = 1000) {
-        // Calcula a porcentagem real (ex: 0 de 1000 cotas = 0%)
-        let porcentagem = (cotasVendidas / totalCotas) * 100;
-        if (porcentagem > 100) porcentagem = 100;
+        function atualizarCotometro(cotasVendidas, totalCotas = 1000) {
+            let porcentagem = (cotasVendidas / totalCotas) * 100;
+            if (porcentagem > 100) porcentagem = 100;
 
-        const fillElem = document.querySelector('.progress-fill');
-        const textElem = document.getElementById('progress-text');
+            const fillElem = document.querySelector('.progress-fill');
+            const textElem = document.getElementById('progress-text');
 
-        if (fillElem) fillElem.style.width = porcentagem.toFixed(0) + '%';
-        if (textElem) textElem.innerText = porcentagem.toFixed(0) + '% Vendido';
-    }
+            if (fillElem) fillElem.style.width = porcentagem.toFixed(0) + '%';
+            if (textElem) textElem.innerText = porcentagem.toFixed(0) + '% Vendido';
+        }
 
-    // Inicializa com 0 cotas vendidas
-    document.addEventListener("DOMContentLoaded", function() {
-        atualizarCotometro(0, 1000); 
-    });
-</script>
-    <!-- Script de Verificação de Sessão do Firebase -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyAsm6JE6w1I3IseTQcg3HlktHjimANRj98",
-        authDomain: "kopremia-128fe.firebaseapp.com",
-        projectId: "kopremia-128fe",
-        storageBucket: "kopremia-128fe.firebasestorage.app",
-        messagingSenderId: "575510944994",
-        appId: "1:575510944994:web:e2be838ad3841b6515d2bb",
-        measurementId: "G-DRLLR55757"
-    };
-    
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    
-    document.addEventListener("DOMContentLoaded", () => {
-        const navActions = document.querySelector('.nav-actions');
-
-        // Monitora o estado de autenticação do usuário em tempo real
-        onAuthStateChanged(auth, (user) => {
-            if (user && navActions) {
-                // Se o usuário estiver logado, altera os botões da navbar
-                navActions.innerHTML = `
-                    <a href="perfil.html" class="btn-login" style="color: var(--primary); margin-right: 10px; font-weight: 600;">Minha Conta</a>
-                    <button id="btnLogout" class="btn-primary" style="background: #ef4444; color: #fff; padding: 10px 16px; border-radius: var(--radius); font-weight: 600; cursor: pointer;">Sair</button>
-                `;
-
-                // Adiciona a lógica para o botão de sair (Logout)
-                document.getElementById('btnLogout').addEventListener('click', async () => {
-                    try {
-                        await signOut(auth);
-                        window.location.reload(); // Recarrega a página após sair
-                    } catch (error) {
-                        console.error("Erro ao sair:", error);
-                    }
-                });
-            }
+        document.addEventListener("DOMContentLoaded", function() {
+            atualizarCotometro(0, 1000); 
         });
-    });
-</script>
+    </script>
 </body>
 </html>
